@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CraftLog — Dein Werkstatt-Tagebuch</title>
+  <meta name="description" content="CraftLog ist das Projekt-Tagebuch für alles was du baust, lernst und trainierst. Schritte, Material, Fortschritt und Fotos — an einem Ort." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1C1A14;
+      --surface: #252118;
+      --surface-raised: #2E2A1E;
+      --gold: #E8C97A;
+      --gold-soft: #C9A85E;
+      --text: #F3EEE0;
+      --muted: #A89F89;
+      --faint: #6E6855;
+      --hairline: #403A2B;
+      --display: 'Fraunces', Georgia, serif;
+      --body: 'DM Sans', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 700; font-size: 22px; }
+    .mark { width: 38px; height: 38px; }
+    nav a { color: var(--muted); margin-left: 28px; font-size: 15px; transition: color .2s; }
+    nav a:hover { color: var(--gold); }
+
+    /* Hero */
+    .hero { position: relative; text-align: center; padding: 80px 0 100px; }
+    .hero::before {
+      content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,201,122,0.13), transparent 65%);
+      pointer-events: none;
+    }
+    .kicker { color: var(--gold-soft); letter-spacing: 3px; text-transform: uppercase; font-size: 13px; font-weight: 500; }
+    .hero h1 {
+      font-family: var(--display); font-weight: 700; font-size: clamp(44px, 8vw, 86px);
+      line-height: 1.02; margin: 18px 0 22px; letter-spacing: -1px;
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .hero p { color: var(--muted); font-size: clamp(17px, 2.4vw, 21px); max-width: 600px; margin: 0 auto 40px; }
+    .cta { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px; border-radius: 999px; font-weight: 700; font-size: 16px;
+      transition: transform .15s, opacity .15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--gold); color: #211D14; }
+    .btn-ghost { background: var(--surface); color: var(--gold); border: 1px solid var(--hairline); }
+
+    /* Sections */
+    section { padding: 70px 0; }
+    .section-label { color: var(--gold-soft); letter-spacing: 2px; text-transform: uppercase; font-size: 13px; font-weight: 500; text-align: center; }
+    .section-title { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 5vw, 46px); text-align: center; margin: 10px 0 50px; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 32px;
+      transition: border-color .2s, transform .2s;
+    }
+    .card:hover { border-color: var(--gold-soft); transform: translateY(-4px); }
+    .card .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-raised); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
+    .card h3 { font-family: var(--display); font-weight: 600; font-size: 22px; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 15px; }
+
+    /* Pricing */
+    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 720px; margin: 0 auto; }
+    .price-card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 36px; }
+    .price-card.featured { border-color: var(--gold); background: linear-gradient(180deg, rgba(232,201,122,0.08), var(--surface)); }
+    .price-card .plan { font-family: var(--display); font-size: 24px; font-weight: 600; }
+    .price-card .amount { font-family: var(--display); font-size: 46px; font-weight: 700; color: var(--gold); margin: 12px 0 4px; }
+    .price-card .per { color: var(--faint); font-size: 14px; }
+    .price-card ul { list-style: none; margin: 24px 0 0; }
+    .price-card li { padding: 9px 0; color: var(--muted); font-size: 15px; display: flex; gap: 10px; }
+    .price-card li::before { content: '✓'; color: var(--gold); font-weight: 700; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--hairline); padding: 40px 0; text-align: center; color: var(--faint); font-size: 14px; }
+    footer a { color: var(--muted); margin: 0 12px; }
+    footer a:hover { color: var(--gold); }
+    .foot-brand { font-family: var(--display); font-weight: 600; color: var(--text); margin-bottom: 12px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="24" fill="#252118"/>
+          <path d="M68 32 A24 24 0 1 0 68 68" stroke="#E8C97A" stroke-width="13" stroke-linecap="round" fill="none"/>
+        </svg>
+        CraftLog
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#preise">Preise</a>
+        <a href="#download">Download</a>
+      </nav>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="kicker">Dein Werkstatt-Tagebuch</div>
+      <h1>Halt fest, <span class="gold">was du baust.</span></h1>
+      <p>Vom Schneidebrett über den Halbmarathon bis zur Sprachprüfung — CraftLog dokumentiert jeden Schritt, jedes Material und deinen Fortschritt. An einem Ort.</p>
+      <div class="cta" id="download">
+        <a class="btn btn-primary" href="#">App Store</a>
+        <a class="btn btn-ghost" href="#">Google Play</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section id="features">
+      <div class="section-label">Was drin ist</div>
+      <h2 class="section-title">Alles für deine Projekte</h2>
+      <div class="features">
+        <div class="card"><div class="ic">📋</div><h3>Schritte & Material</h3><p>Hak Arbeitsschritte ab und führ deine Materialliste — der Fortschritt rechnet sich von selbst.</p></div>
+        <div class="card"><div class="ic">📸</div><h3>Fotos</h3><p>Halt jeden Meilenstein im Bild fest, vom Rohzustand bis zum fertigen Stück.</p></div>
+        <div class="card"><div class="ic">⏱️</div><h3>Zeit-Tracking</h3><p>Schätz den Aufwand und log deine echten Stunden mit einem Tipp.</p></div>
+        <div class="card"><div class="ic">🗂️</div><h3>Bereiche</h3><p>Handwerk, Arbeit, Sport, Lernen — mit Unterkategorien für jedes Projekt.</p></div>
+        <div class="card"><div class="ic">📊</div><h3>Überblick</h3><p>Projekte, aktive Vorhaben und Gesamtstunden auf einen Blick.</p></div>
+        <div class="card"><div class="ic">↗</div><h3>Teilen</h3><p>Zeig deine Fortschritte mit einer aufgeräumten Projekt-Karte.</p></div>
+      </div>
+    </section>
+
+    <section id="preise">
+      <div class="section-label">Preise</div>
+      <h2 class="section-title">Fang gratis an</h2>
+      <div class="pricing">
+        <div class="price-card">
+          <div class="plan">Free</div>
+          <div class="amount">0 €</div>
+          <div class="per">für immer</div>
+          <ul>
+            <li>Bis zu 10 Projekte</li>
+            <li>Schritte & Material</li>
+            <li>Fortschritt & Zeit</li>
+          </ul>
+        </div>
+        <div class="price-card featured">
+          <div class="plan">Pro</div>
+          <div class="amount">2,99 €</div>
+          <div class="per">pro Monat — oder 19,99 € / Jahr</div>
+          <ul>
+            <li>Unbegrenzte Projekte</li>
+            <li>Fotos ohne Limit</li>
+            <li>Statistiken</li>
+            <li>Share-Karten</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-brand">CraftLog</div>
+      <div>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/agb.html">AGB</a>
+        <a href="/impressum.html">Impressum</a>
+      </div>
+      <p style="margin-top:16px">© 2026 CraftLog. Mit ♥ gebaut.</p>
+    </div>
+  </footer>
+</body>
+</html>
