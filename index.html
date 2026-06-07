@@ -42,8 +42,16 @@
     }
     .brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 700; font-size: 22px; }
     .mark { width: 38px; height: 38px; }
+    nav { display: flex; align-items: center; }
     nav a { color: var(--muted); margin-left: 28px; font-size: 15px; transition: color .2s; }
     nav a:hover { color: var(--gold); }
+
+    /* Language toggle */
+    .langbar { display: inline-flex; gap: 4px; margin-left: 28px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 3px; }
+    .langbar button { background: none; border: none; color: var(--muted); font-family: inherit; font-size: 13px; padding: 5px 11px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .langbar button.active { background: var(--gold); color: #211D14; font-weight: 700; }
+    body.lang-de [data-lang="en"] { display: none; }
+    body.lang-en [data-lang="de"] { display: none; }
 
     /* Hero */
     .hero { position: relative; text-align: center; padding: 80px 0 100px; }
@@ -103,7 +111,7 @@
     .foot-brand { font-family: var(--display); font-weight: 600; color: var(--text); margin-bottom: 12px; font-size: 18px; }
   </style>
 </head>
-<body>
+<body class="lang-de">
   <div class="wrap">
     <header>
       <div class="brand">
@@ -115,17 +123,30 @@
       </div>
       <nav>
         <a href="#features">Features</a>
-        <a href="#preise">Preise</a>
+        <a href="#preise"><span data-lang="de">Preise</span><span data-lang="en">Pricing</span></a>
         <a href="#download">Download</a>
+        <span class="langbar">
+          <button type="button" data-set="de">DE</button>
+          <button type="button" data-set="en">EN</button>
+        </span>
       </nav>
     </header>
   </div>
 
   <div class="wrap">
     <div class="hero">
-      <div class="kicker">Dein Projekt-Tagebuch</div>
-      <h1>Halt fest, <span class="gold">was du baust.</span></h1>
-      <p>Vom Schneidebrett über den Halbmarathon bis zur Sprachprüfung — CraftLog dokumentiert jeden Schritt, Fotos, Kosten und deinen Fortschritt. Mit Statistiken, Streak und Erinnerungen.</p>
+      <div class="kicker">
+        <span data-lang="de">Dein Projekt-Tagebuch</span>
+        <span data-lang="en">Your project journal</span>
+      </div>
+      <h1>
+        <span data-lang="de">Halt fest, <span class="gold">was du baust.</span></span>
+        <span data-lang="en">Capture <span class="gold">what you build.</span></span>
+      </h1>
+      <p>
+        <span data-lang="de">Vom Schneidebrett über den Halbmarathon bis zur Sprachprüfung — CraftLog dokumentiert jeden Schritt, Fotos, Kosten und deinen Fortschritt. Mit Statistiken, Streak und Erinnerungen.</span>
+        <span data-lang="en">From a cutting board to a half marathon to a language exam — CraftLog documents every step, photos, costs and your progress. With statistics, streak and reminders.</span>
+      </p>
       <div class="cta" id="download">
         <a class="btn btn-primary" href="#">App Store</a>
         <a class="btn btn-ghost" href="#">Google Play</a>
@@ -135,50 +156,92 @@
 
   <div class="wrap">
     <section id="features">
-      <div class="section-label">Was drin ist</div>
-      <h2 class="section-title">Alles für deine Projekte</h2>
+      <div class="section-label">
+        <span data-lang="de">Was drin ist</span>
+        <span data-lang="en">What's inside</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Alles für deine Projekte</span>
+        <span data-lang="en">Everything for your projects</span>
+      </h2>
       <div class="features">
-        <div class="card"><div class="ic">📋</div><h3>Schritte & Material</h3><p>Hak Arbeitsschritte ab und führ deine Materialliste — der Fortschritt rechnet sich von selbst.</p></div>
-        <div class="card"><div class="ic">📷</div><h3>Fotos pro Schritt</h3><p>Füge jedem einzelnen Schritt ein Foto hinzu — vom Rohzustand bis zum fertigen Detail. Dazu ein Titelfoto fürs gesamte Projekt.</p></div>
-        <div class="card"><div class="ic">⏱️</div><h3>Zeit-Tracking</h3><p>Schätz den Aufwand und log deine echten Stunden mit einem Tipp — in 30-Minuten-Schritten.</p></div>
-        <div class="card"><div class="ic">💶</div><h3>Kosten-Tracker</h3><p>Erfasse alle Ausgaben mit Name und Betrag, setz ein Budget und sieh sofort, wenn du es überziehst.</p></div>
-        <div class="card"><div class="ic">📊</div><h3>Statistiken & Charts</h3><p>Stunden pro Monat als Balkendiagramm, Kategorien-Auswertung, Top-Projekte und Gesamtkosten auf einen Blick.</p></div>
-        <div class="card"><div class="ic">🗂️</div><h3>Kategorien & Suche</h3><p>Handwerk, Arbeit, Sport, Lernen — mit Unterkategorien. Filterchips und Suche direkt auf der Startseite.</p></div>
-        <div class="card"><div class="ic">🔥</div><h3>Streak & Abzeichen</h3><p>Sieh wie viele Tage du schon dabei bist und sammel Abzeichen für Meilensteine wie dein erstes Projekt oder 100 Stunden.</p></div>
-        <div class="card"><div class="ic">🔔</div><h3>Erinnerungen & Deadlines</h3><p>Setz eine Deadline für das gesamte Projekt und lege pro Schritt eine individuelle Erinnerung fest.</p></div>
-        <div class="card"><div class="ic">🛒</div><h3>Einkaufsliste teilen</h3><p>Schick deine Materialliste mit einem Tipp als fertige Einkaufsliste — per Messenger, Mail oder Notiz-App.</p></div>
-        <div class="card"><div class="ic">↗</div><h3>Projekt teilen</h3><p>Zeig deine Fortschritte mit einer aufgeräumten Zusammenfassung: Titel, Kategorie, Schritte und Stunden.</p></div>
+        <div class="card"><div class="ic">📋</div>
+          <h3><span data-lang="de">Schritte & Material</span><span data-lang="en">Steps & materials</span></h3>
+          <p><span data-lang="de">Hak Arbeitsschritte ab und führ deine Materialliste — der Fortschritt rechnet sich von selbst.</span><span data-lang="en">Check off work steps and keep your material list — progress is calculated automatically.</span></p>
+        </div>
+        <div class="card"><div class="ic">📷</div>
+          <h3><span data-lang="de">Fotos pro Schritt</span><span data-lang="en">Photos per step</span></h3>
+          <p><span data-lang="de">Füge jedem einzelnen Schritt ein Foto hinzu — vom Rohzustand bis zum fertigen Detail. Dazu ein Titelfoto fürs gesamte Projekt.</span><span data-lang="en">Add a photo to every single step — from the raw state to the finished detail. Plus a cover photo for the whole project.</span></p>
+        </div>
+        <div class="card"><div class="ic">⏱️</div>
+          <h3><span data-lang="de">Zeit-Tracking</span><span data-lang="en">Time tracking</span></h3>
+          <p><span data-lang="de">Schätz den Aufwand und log deine echten Stunden mit einem Tipp — in 30-Minuten-Schritten.</span><span data-lang="en">Estimate the effort and log your real hours with one tap — in 30-minute increments.</span></p>
+        </div>
+        <div class="card"><div class="ic">💶</div>
+          <h3><span data-lang="de">Kosten-Tracker</span><span data-lang="en">Cost tracker</span></h3>
+          <p><span data-lang="de">Erfasse alle Ausgaben mit Name und Betrag, setz ein Budget und sieh sofort, wenn du es überziehst.</span><span data-lang="en">Record all expenses with name and amount, set a budget and see immediately when you exceed it.</span></p>
+        </div>
+        <div class="card"><div class="ic">📊</div>
+          <h3><span data-lang="de">Statistiken & Charts</span><span data-lang="en">Statistics & charts</span></h3>
+          <p><span data-lang="de">Stunden pro Monat als Balkendiagramm, Kategorien-Auswertung, Top-Projekte und Gesamtkosten auf einen Blick.</span><span data-lang="en">Hours per month as a bar chart, category breakdown, top projects and total costs at a glance.</span></p>
+        </div>
+        <div class="card"><div class="ic">🗂️</div>
+          <h3><span data-lang="de">Kategorien & Suche</span><span data-lang="en">Categories & search</span></h3>
+          <p><span data-lang="de">Handwerk, Arbeit, Sport, Lernen — mit Unterkategorien. Filterchips und Suche direkt auf der Startseite.</span><span data-lang="en">Craft, work, sports, learning — with subcategories. Filter chips and search right on the home screen.</span></p>
+        </div>
+        <div class="card"><div class="ic">🔥</div>
+          <h3><span data-lang="de">Streak & Abzeichen</span><span data-lang="en">Streak & badges</span></h3>
+          <p><span data-lang="de">Sieh wie viele Tage du schon dabei bist und sammel Abzeichen für Meilensteine wie dein erstes Projekt oder 100 Stunden.</span><span data-lang="en">See how many days you've been at it and collect badges for milestones like your first project or 100 hours.</span></p>
+        </div>
+        <div class="card"><div class="ic">🔔</div>
+          <h3><span data-lang="de">Erinnerungen & Deadlines</span><span data-lang="en">Reminders & deadlines</span></h3>
+          <p><span data-lang="de">Setz eine Deadline für das gesamte Projekt und lege pro Schritt eine individuelle Erinnerung fest.</span><span data-lang="en">Set a deadline for the whole project and a custom reminder for each step.</span></p>
+        </div>
+        <div class="card"><div class="ic">🛒</div>
+          <h3><span data-lang="de">Einkaufsliste teilen</span><span data-lang="en">Share shopping list</span></h3>
+          <p><span data-lang="de">Schick deine Materialliste mit einem Tipp als fertige Einkaufsliste — per Messenger, Mail oder Notiz-App.</span><span data-lang="en">Send your material list as a ready-made shopping list with one tap — via messenger, email or notes app.</span></p>
+        </div>
+        <div class="card"><div class="ic">↗</div>
+          <h3><span data-lang="de">Projekt teilen</span><span data-lang="en">Share project</span></h3>
+          <p><span data-lang="de">Zeig deine Fortschritte mit einer aufgeräumten Zusammenfassung: Titel, Kategorie, Schritte und Stunden.</span><span data-lang="en">Show your progress with a tidy summary: title, category, steps and hours.</span></p>
+        </div>
       </div>
     </section>
 
     <section id="preise">
-      <div class="section-label">Preise</div>
-      <h2 class="section-title">Fang gratis an</h2>
+      <div class="section-label">
+        <span data-lang="de">Preise</span>
+        <span data-lang="en">Pricing</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Fang gratis an</span>
+        <span data-lang="en">Start for free</span>
+      </h2>
       <div class="pricing">
         <div class="price-card">
           <div class="plan">Free</div>
-          <div class="amount">0 €</div>
-          <div class="per">für immer</div>
+          <div class="amount"><span data-lang="de">0 €</span><span data-lang="en">€0</span></div>
+          <div class="per"><span data-lang="de">für immer</span><span data-lang="en">forever</span></div>
           <ul>
-            <li>Bis zu 5 Projekte</li>
-            <li>Schritte & Materialliste</li>
-            <li>Fortschritt & Zeit-Tracking</li>
-            <li>Kategorien & Suchfunktion</li>
+            <li><span data-lang="de">Bis zu 5 Projekte</span><span data-lang="en">Up to 5 projects</span></li>
+            <li><span data-lang="de">Schritte & Materialliste</span><span data-lang="en">Steps & material list</span></li>
+            <li><span data-lang="de">Fortschritt & Zeit-Tracking</span><span data-lang="en">Progress & time tracking</span></li>
+            <li><span data-lang="de">Kategorien & Suchfunktion</span><span data-lang="en">Categories & search</span></li>
           </ul>
         </div>
         <div class="price-card featured">
           <div class="plan">Pro</div>
-          <div class="amount">2,99 €</div>
-          <div class="per">pro Monat — oder 19,99 € / Jahr (2 Monate gratis)</div>
+          <div class="amount"><span data-lang="de">2,99 €</span><span data-lang="en">€2.99</span></div>
+          <div class="per"><span data-lang="de">pro Monat — oder 19,99 € / Jahr (2 Monate gratis)</span><span data-lang="en">per month — or €19.99 / year (2 months free)</span></div>
           <ul>
-            <li>Unbegrenzte Projekte</li>
-            <li>Fotos ohne Limit — auch pro Schritt</li>
-            <li>Vollständige Statistiken & Charts</li>
-            <li>Kosten-Tracker & Budget-Warnung</li>
-            <li>Erinnerungen & Deadlines</li>
-            <li>Einkaufsliste teilen</li>
-            <li>Streak & Abzeichen</li>
-            <li>Share-Karten</li>
+            <li><span data-lang="de">Unbegrenzte Projekte</span><span data-lang="en">Unlimited projects</span></li>
+            <li><span data-lang="de">Fotos ohne Limit — auch pro Schritt</span><span data-lang="en">Unlimited photos — also per step</span></li>
+            <li><span data-lang="de">Vollständige Statistiken & Charts</span><span data-lang="en">Full statistics & charts</span></li>
+            <li><span data-lang="de">Kosten-Tracker & Budget-Warnung</span><span data-lang="en">Cost tracker & budget alerts</span></li>
+            <li><span data-lang="de">Erinnerungen & Deadlines</span><span data-lang="en">Reminders & deadlines</span></li>
+            <li><span data-lang="de">Einkaufsliste teilen</span><span data-lang="en">Share shopping list</span></li>
+            <li><span data-lang="de">Streak & Abzeichen</span><span data-lang="en">Streak & badges</span></li>
+            <li><span data-lang="de">Share-Karten</span><span data-lang="en">Share cards</span></li>
           </ul>
         </div>
       </div>
@@ -189,12 +252,38 @@
     <div class="wrap">
       <div class="foot-brand">CraftLog</div>
       <div>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="agb.html">AGB</a>
-        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy</span></a>
+        <a href="agb.html"><span data-lang="de">AGB</span><span data-lang="en">Terms</span></a>
+        <a href="impressum.html"><span data-lang="de">Impressum</span><span data-lang="en">Legal Notice</span></a>
       </div>
-      <p style="margin-top:16px">© 2026 CraftLog. Mit ♥ gebaut.</p>
+      <p style="margin-top:16px">
+        <span data-lang="de">© 2026 CraftLog. Mit ♥ gebaut.</span>
+        <span data-lang="en">© 2026 CraftLog. Built with ♥.</span>
+      </p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      function setLang(lang) {
+        document.body.className = 'lang-' + lang;
+        document.documentElement.lang = lang;
+        var btns = document.querySelectorAll('.langbar button');
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].classList.toggle('active', btns[i].getAttribute('data-set') === lang);
+        }
+        try { localStorage.setItem('craftlog_lang', lang); } catch (e) {}
+      }
+      var saved = null;
+      try { saved = localStorage.getItem('craftlog_lang'); } catch (e) {}
+      var nav = (navigator.language || 'en').toLowerCase();
+      var initial = saved || (nav.indexOf('de') === 0 ? 'de' : 'en');
+      setLang(initial);
+      var btns = document.querySelectorAll('.langbar button');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () { setLang(this.getAttribute('data-set')); });
+      }
+    })();
+  </script>
 </body>
 </html>
