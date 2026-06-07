@@ -15,18 +15,32 @@
   .back { display:inline-flex; align-items:center; gap:8px; color:#A89F89; font-size:14px; margin-bottom:40px; text-decoration:none; transition:color .2s; }
   .back:hover { color:#E8C97A; }
   .back svg { width:16px; height:16px; }
+  .langbar { position:fixed; top:16px; right:16px; display:flex; gap:4px; background:#252118; border:1px solid #403A2B; border-radius:999px; padding:4px; z-index:10; }
+  .langbar button { background:none; border:none; color:#A89F89; font-family:inherit; font-size:13px; padding:6px 12px; border-radius:999px; cursor:pointer; transition:background .2s,color .2s; }
+  .langbar button.active { background:#E8C97A; color:#211D14; font-weight:600; }
+  body.lang-de [data-lang="en"] { display:none; }
+  body.lang-en [data-lang="de"] { display:none; }
 </style>
 </head>
-<body>
+<body class="lang-de">
+<div class="langbar">
+  <button type="button" data-set="de">DE</button>
+  <button type="button" data-set="en">EN</button>
+</div>
+
 <a class="back" href="index.html">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-  Zurück zur Startseite
+  <span data-lang="de">Zurück zur Startseite</span>
+  <span data-lang="en">Back to homepage</span>
 </a>
+
+<!-- ===================== DEUTSCH ===================== -->
+<div data-lang="de">
 <h1>Allgemeine Geschäftsbedingungen</h1>
 <p class="muted">Stand: Juni 2026</p>
 
 <h2>1. Geltungsbereich</h2>
-<p>Diese AGB gelten für die Nutzung der App „CraftLog" (nachfolgend „App"), angeboten von CraftLOG.</p>
+<p>Diese AGB gelten für die Nutzung der App „CraftLog" (nachfolgend „App"), angeboten von CraftLog.</p>
 
 <h2>2. Leistungen</h2>
 <p>CraftLog ist eine App zum Dokumentieren persönlicher Projekte. Die Basisfunktionen sind kostenlos. Über ein optionales „Pro"-Abonnement werden zusätzliche Funktionen (u.&nbsp;a. unbegrenzte Projekte) freigeschaltet.</p>
@@ -38,7 +52,7 @@
 <p>Du kannst das Abo jederzeit in den Einstellungen deines Apple- bzw. Google-Kontos kündigen. Die Kündigung wird zum Ende des laufenden Abrechnungszeitraums wirksam.</p>
 
 <h2>5. Widerrufsrecht</h2>
-<p>Für digitale Inhalte gelten die gesetzlichen Bestimmungen. Die Abwicklung von Rückerstattungen richtet sich nach den Richtlinien des jeweiligen App-Stores. <span class="muted">[An deine Situation anpassen.]</span></p>
+<p>Für digitale Inhalte gelten die gesetzlichen Bestimmungen. Die Abwicklung von Rückerstattungen richtet sich nach den Richtlinien des jeweiligen App-Stores.</p>
 
 <h2>6. Pflichten der Nutzer</h2>
 <p>Du bist für deine in der App gespeicherten Inhalte selbst verantwortlich. Da die Daten lokal auf deinem Gerät liegen, empfehlen wir, wichtige Inhalte zusätzlich zu sichern.</p>
@@ -51,5 +65,62 @@
 
 <h2>9. Schlussbestimmungen</h2>
 <p>Es gilt österreichisches Recht.</p>
+</div>
+
+<!-- ===================== ENGLISH ===================== -->
+<div data-lang="en">
+<h1>Terms and Conditions</h1>
+<p class="muted">Last updated: June 2026</p>
+
+<h2>1. Scope</h2>
+<p>These Terms and Conditions apply to the use of the "CraftLog" app (the "App"), offered by CraftLog.</p>
+
+<h2>2. Services</h2>
+<p>CraftLog is an app for documenting personal projects. The basic features are free. An optional "Pro" subscription unlocks additional features (including unlimited projects).</p>
+
+<h2>3. Subscription, prices, renewal</h2>
+<p>The Pro subscription is available as a monthly or annual plan. The applicable prices are shown before purchase in the App Store / Play Store. The subscription renews automatically for the chosen term unless cancelled in time. Purchase, billing and renewal are handled through your Apple or Google account.</p>
+
+<h2>4. Cancellation</h2>
+<p>You can cancel the subscription at any time in the settings of your Apple or Google account. The cancellation takes effect at the end of the current billing period.</p>
+
+<h2>5. Right of withdrawal</h2>
+<p>The statutory provisions apply to digital content. Refunds are handled according to the policies of the respective app store.</p>
+
+<h2>6. User obligations</h2>
+<p>You are responsible for the content you store in the app. Since the data is stored locally on your device, we recommend additionally backing up important content.</p>
+
+<h2>7. Liability</h2>
+<p>The provider is liable in accordance with statutory provisions. No liability is accepted for data loss due to device failure, uninstallation or resetting of the app, to the extent permitted by law.</p>
+
+<h2>8. Changes</h2>
+<p>The provider may amend these Terms and Conditions. Material changes will be communicated in an appropriate manner.</p>
+
+<h2>9. Final provisions</h2>
+<p>Austrian law applies.</p>
+</div>
+
+<script>
+  (function () {
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.documentElement.lang = lang;
+      var btns = document.querySelectorAll('.langbar button');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.toggle('active', btns[i].getAttribute('data-set') === lang);
+      }
+      try { localStorage.setItem('craftlog_lang', lang); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('craftlog_lang'); } catch (e) {}
+    var nav = (navigator.language || 'en').toLowerCase();
+    var initial = saved || (nav.indexOf('de') === 0 ? 'de' : 'en');
+    setLang(initial);
+    var btns = document.querySelectorAll('.langbar button');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () { setLang(this.getAttribute('data-set')); });
+    }
+  })();
+</script>
 </body>
 </html>
