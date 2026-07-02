@@ -25,23 +25,43 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(1100px 620px at 18% -140px, rgba(232,201,122,.12), transparent 65%),
+        radial-gradient(900px 600px at 95% 5%, rgba(201,168,94,.08), transparent 62%),
+        radial-gradient(800px 520px at 50% 115%, rgba(232,201,122,.06), transparent 60%),
+        var(--bg);
+      background-attachment: fixed;
       color: var(--text);
       font-family: var(--body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(243,238,224,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(243,238,224,.02) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: radial-gradient(900px 620px at 50% 0%, #000 25%, transparent 75%);
+      mask-image: radial-gradient(900px 620px at 50% 0%, #000 25%, transparent 75%);
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
     a { color: inherit; text-decoration: none; }
 
-    /* Header */
+    /* Sticky glass header */
+    .sitehead {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(28,26,20,.72);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(243,238,224,.06);
+    }
     header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 0;
+      padding: 16px 0;
     }
     .brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 700; font-size: 22px; }
-    .mark { width: 38px; height: 38px; }
+    .mark { width: 38px; height: 38px; filter: drop-shadow(0 6px 16px rgba(232,201,122,.3)); }
     nav { display: flex; align-items: center; }
     nav a { color: var(--muted); margin-left: 28px; font-size: 15px; transition: color .2s; }
     nav a:hover { color: var(--gold); }
@@ -66,7 +86,17 @@
       font-family: var(--display); font-weight: 700; font-size: clamp(44px, 8vw, 86px);
       line-height: 1.02; margin: 18px 0 22px; letter-spacing: -1px;
     }
-    .hero h1 .gold { color: var(--gold); }
+    .hero h1 .gold {
+      background: linear-gradient(120deg, #F5E3B3, var(--gold-soft));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero > * { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.22,.61,.36,1) forwards; }
+      .hero > *:nth-child(2) { animation-delay: .08s; }
+      .hero > *:nth-child(3) { animation-delay: .16s; }
+      .hero > *:nth-child(4) { animation-delay: .24s; }
+      @keyframes rise { to { opacity: 1; transform: none; } }
+    }
     .hero p { color: var(--muted); font-size: clamp(17px, 2.4vw, 21px); max-width: 600px; margin: 0 auto 40px; }
     .cta { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
     .btn {
@@ -75,8 +105,11 @@
       transition: transform .15s, opacity .15s;
     }
     .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: var(--gold); color: #211D14; }
+    .btn-primary { background: linear-gradient(135deg, #F0D690, var(--gold-soft)); color: #211D14;
+      box-shadow: 0 10px 30px rgba(232,201,122,.25); }
+    .btn-primary:hover { box-shadow: 0 14px 38px rgba(232,201,122,.35); }
     .btn-ghost { background: var(--surface); color: var(--gold); border: 1px solid var(--hairline); }
+    .btn-ghost:hover { border-color: var(--gold-soft); }
 
     /* Sections */
     section { padding: 70px 0; }
@@ -85,23 +118,42 @@
 
     .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
     .card {
-      background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 32px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(180deg, var(--surface), #211E15);
+      border: 1px solid var(--hairline); border-radius: 24px; padding: 32px;
       transition: border-color .2s, transform .2s;
     }
+    .card::before { content: ''; position: absolute; inset: 0;
+      background: radial-gradient(360px 180px at 100% 0%, rgba(232,201,122,.08), transparent 70%); opacity: .9; }
+    .card > * { position: relative; }
     .card:hover { border-color: var(--gold-soft); transform: translateY(-4px); }
-    .card .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-raised); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
+    .card .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-raised);
+      border: 1px solid rgba(232,201,122,.18);
+      display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
     .card h3 { font-family: var(--display); font-weight: 600; font-size: 22px; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: 15px; }
 
     /* More apps (cross-promo) */
-    .appimg { width: 56px; height: 56px; border-radius: 14px; display: block; object-fit: cover; margin-bottom: 18px; }
+    .appimg { width: 56px; height: 56px; border-radius: 14px; display: block; object-fit: cover; margin-bottom: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08); }
     .applink { display: block; }
     .applink .more { color: var(--gold-soft); font-size: 14px; font-weight: 700; margin-top: 14px; display: inline-block; }
 
     /* Pricing */
     .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 720px; margin: 0 auto; }
-    .price-card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 36px; }
-    .price-card.featured { border-color: var(--gold); background: linear-gradient(180deg, rgba(232,201,122,0.08), var(--surface)); }
+    .price-card { background: linear-gradient(180deg, var(--surface), #211E15); border: 1px solid var(--hairline); border-radius: 24px; padding: 36px; transition: transform .2s; }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured { border-color: var(--gold); background: linear-gradient(180deg, rgba(232,201,122,0.08), var(--surface));
+      box-shadow: 0 0 0 1px rgba(232,201,122,.3), 0 18px 44px rgba(232,201,122,.08); }
+
+    /* Scroll reveal */
+    .reveal.pre { opacity: 0; transform: translateY(18px); }
+    .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
+    .features .reveal.in:nth-child(2), .pricing .reveal.in:nth-child(2) { transition-delay: .07s; }
+    .features .reveal.in:nth-child(3) { transition-delay: .14s; }
+    .features .reveal.in:nth-child(4) { transition-delay: .21s; }
+    .features .reveal.in:nth-child(5) { transition-delay: .28s; }
+    .features .reveal.in:nth-child(6) { transition-delay: .35s; }
     .price-card .plan { font-family: var(--display); font-size: 24px; font-weight: 600; }
     .price-card .amount { font-family: var(--display); font-size: 46px; font-weight: 700; color: var(--gold); margin: 12px 0 4px; }
     .price-card .per { color: var(--faint); font-size: 14px; }
@@ -117,6 +169,7 @@
   </style>
 </head>
 <body class="lang-de">
+  <div class="sitehead">
   <div class="wrap">
     <header>
       <div class="brand">
@@ -137,6 +190,7 @@
         </span>
       </nav>
     </header>
+  </div>
   </div>
 
   <div class="wrap">
@@ -170,47 +224,47 @@
         <span data-lang="en">Everything for your projects</span>
       </h2>
       <div class="features">
-        <div class="card"><div class="ic">📋</div>
+        <div class="card reveal"><div class="ic">📋</div>
           <h3><span data-lang="de">Schritte & Material</span><span data-lang="en">Steps & materials</span></h3>
           <p><span data-lang="de">Hak Arbeitsschritte ab und führ deine Materialliste — der Fortschritt rechnet sich von selbst.</span><span data-lang="en">Check off work steps and keep your material list — progress is calculated automatically.</span></p>
         </div>
-        <div class="card"><div class="ic">📷</div>
+        <div class="card reveal"><div class="ic">📷</div>
           <h3><span data-lang="de">Fotos pro Schritt</span><span data-lang="en">Photos per step</span></h3>
           <p><span data-lang="de">Füge jedem einzelnen Schritt ein Foto hinzu — vom Rohzustand bis zum fertigen Detail. Dazu ein Titelfoto fürs gesamte Projekt.</span><span data-lang="en">Add a photo to every single step — from the raw state to the finished detail. Plus a cover photo for the whole project.</span></p>
         </div>
-        <div class="card"><div class="ic">⏱️</div>
+        <div class="card reveal"><div class="ic">⏱️</div>
           <h3><span data-lang="de">Zeit-Tracking</span><span data-lang="en">Time tracking</span></h3>
           <p><span data-lang="de">Schätz den Aufwand und log deine echten Stunden mit einem Tipp — in 30-Minuten-Schritten.</span><span data-lang="en">Estimate the effort and log your real hours with one tap — in 30-minute increments.</span></p>
         </div>
-        <div class="card"><div class="ic">💶</div>
+        <div class="card reveal"><div class="ic">💶</div>
           <h3><span data-lang="de">Kosten-Tracker</span><span data-lang="en">Cost tracker</span></h3>
           <p><span data-lang="de">Erfasse alle Ausgaben mit Name und Betrag, setz ein Budget und sieh sofort, wenn du es überziehst.</span><span data-lang="en">Record all expenses with name and amount, set a budget and see immediately when you exceed it.</span></p>
         </div>
-        <div class="card"><div class="ic">🧾</div>
+        <div class="card reveal"><div class="ic">🧾</div>
           <h3><span data-lang="de">Kunden & Auftragsstatus</span><span data-lang="en">Customers & job status</span></h3>
           <p><span data-lang="de">Für Aufträge: hinterleg Kunde mit Name, Telefon und Adresse und setz den Status von Angebot über In Arbeit bis Abgerechnet. Komplett optional — einfache Projekte bleiben einfach.</span><span data-lang="en">For client jobs: store the customer with name, phone and address and set the status from quote through in progress to invoiced. Fully optional — simple projects stay simple.</span></p>
         </div>
-        <div class="card"><div class="ic">📊</div>
+        <div class="card reveal"><div class="ic">📊</div>
           <h3><span data-lang="de">Statistiken & Charts</span><span data-lang="en">Statistics & charts</span></h3>
           <p><span data-lang="de">Stunden pro Monat als Balkendiagramm, Kategorien-Auswertung, Top-Projekte und Gesamtkosten auf einen Blick.</span><span data-lang="en">Hours per month as a bar chart, category breakdown, top projects and total costs at a glance.</span></p>
         </div>
-        <div class="card"><div class="ic">🗂️</div>
+        <div class="card reveal"><div class="ic">🗂️</div>
           <h3><span data-lang="de">Kategorien & Suche</span><span data-lang="en">Categories & search</span></h3>
           <p><span data-lang="de">Handwerk, Arbeit, Sport, Lernen — mit Unterkategorien. Filterchips und Suche direkt auf der Startseite.</span><span data-lang="en">Craft, work, sports, learning — with subcategories. Filter chips and search right on the home screen.</span></p>
         </div>
-        <div class="card"><div class="ic">🔥</div>
+        <div class="card reveal"><div class="ic">🔥</div>
           <h3><span data-lang="de">Streak & Abzeichen</span><span data-lang="en">Streak & badges</span></h3>
           <p><span data-lang="de">Sieh wie viele Tage du schon dabei bist und sammel Abzeichen für Meilensteine wie dein erstes Projekt oder 100 Stunden.</span><span data-lang="en">See how many days you've been at it and collect badges for milestones like your first project or 100 hours.</span></p>
         </div>
-        <div class="card"><div class="ic">🔔</div>
+        <div class="card reveal"><div class="ic">🔔</div>
           <h3><span data-lang="de">Erinnerungen & Deadlines</span><span data-lang="en">Reminders & deadlines</span></h3>
           <p><span data-lang="de">Setz eine Deadline für das gesamte Projekt und lege pro Schritt eine individuelle Erinnerung fest.</span><span data-lang="en">Set a deadline for the whole project and a custom reminder for each step.</span></p>
         </div>
-        <div class="card"><div class="ic">🛒</div>
+        <div class="card reveal"><div class="ic">🛒</div>
           <h3><span data-lang="de">Einkaufsliste teilen</span><span data-lang="en">Share shopping list</span></h3>
           <p><span data-lang="de">Schick deine Materialliste mit einem Tipp als fertige Einkaufsliste — per Messenger, Mail oder Notiz-App.</span><span data-lang="en">Send your material list as a ready-made shopping list with one tap — via messenger, email or notes app.</span></p>
         </div>
-        <div class="card"><div class="ic">↗</div>
+        <div class="card reveal"><div class="ic">↗</div>
           <h3><span data-lang="de">Projekt teilen</span><span data-lang="en">Share project</span></h3>
           <p><span data-lang="de">Zeig deine Fortschritte mit einer aufgeräumten Zusammenfassung: Titel, Kategorie, Schritte und Stunden.</span><span data-lang="en">Show your progress with a tidy summary: title, category, steps and hours.</span></p>
         </div>
@@ -227,7 +281,7 @@
         <span data-lang="en">Start for free</span>
       </h2>
       <div class="pricing">
-        <div class="price-card">
+        <div class="price-card reveal">
           <div class="plan">Free</div>
           <div class="amount"><span data-lang="de">0 €</span><span data-lang="en">€0</span></div>
           <div class="per"><span data-lang="de">für immer</span><span data-lang="en">forever</span></div>
@@ -238,7 +292,7 @@
             <li><span data-lang="de">Kategorien & Suchfunktion</span><span data-lang="en">Categories & search</span></li>
           </ul>
         </div>
-        <div class="price-card featured">
+        <div class="price-card featured reveal">
           <div class="plan">Pro</div>
           <div class="amount"><span data-lang="de">2,99 €</span><span data-lang="en">€2.99</span></div>
           <div class="per"><span data-lang="de">pro Monat — oder 19,99 € / Jahr (2 Monate gratis)</span><span data-lang="en">per month — or €19.99 / year (2 months free)</span></div>
@@ -266,37 +320,37 @@
         <span data-lang="en">Discover the whole Dexware suite</span>
       </h2>
       <div class="features">
-        <a class="card applink" href="https://winterdex.dexware.app">
+        <a class="card applink reveal" href="https://winterdex.dexware.app">
           <img class="appimg" src="winterdex-icon.png" alt="WinterDex" width="56" height="56" />
           <h3>WinterDex</h3>
           <p><span data-lang="de">Winterdienst-Nachweis – Räum- & Streueinsätze gerichtsfest dokumentieren.</span><span data-lang="en">Winter service log — court-proof records of clearing & gritting.</span></p>
           <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
         </a>
-        <a class="card applink" href="https://tourdex.dexware.app">
+        <a class="card applink reveal" href="https://tourdex.dexware.app">
           <img class="appimg" src="routelog-icon.png" alt="TourDex" width="56" height="56" />
           <h3>TourDex</h3>
           <p><span data-lang="de">Automatisches Fahrtenbuch für Selbstständige.</span><span data-lang="en">Automatic mileage logbook for the self-employed.</span></p>
           <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
         </a>
-        <a class="card applink" href="https://dokudex.dexware.app">
+        <a class="card applink reveal" href="https://dokudex.dexware.app">
           <img class="appimg" src="archio-icon.png" alt="DokuDex" width="56" height="56" />
           <h3>DokuDex</h3>
           <p><span data-lang="de">Dokumente scannen und per KI verstehen – Belege, Verträge und mehr.</span><span data-lang="en">Scan documents and understand them with AI — receipts, contracts & more.</span></p>
           <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
         </a>
-        <a class="card applink" href="https://baumdex-portal.vercel.app">
+        <a class="card applink reveal" href="https://baumdex-portal.vercel.app">
           <img class="appimg" src="baumdex-icon.png" alt="BaumDex" width="56" height="56" />
           <h3>BaumDex</h3>
           <p><span data-lang="de">Digitales Baumkataster & Baumkontrolle für Kommunen & GaLaBau.</span><span data-lang="en">Digital tree register & inspection for municipalities & landscapers.</span></p>
           <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
         </a>
-        <a class="card applink" href="https://schutzdex.dexware.app">
+        <a class="card applink reveal" href="https://schutzdex.dexware.app">
           <img class="appimg" src="schutzheld-icon.png" alt="SchutzDex" width="56" height="56" />
           <h3>SchutzDex</h3>
           <p><span data-lang="de">Arbeitsschutz-Unterweisung & Gefährdungsbeurteilung – prüffest dokumentiert.</span><span data-lang="en">Workplace-safety briefings & risk assessment — audit-proof.</span></p>
           <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
         </a>
-        <a class="card applink" href="https://pruefdex.dexware.app">
+        <a class="card applink reveal" href="https://pruefdex.dexware.app">
           <img class="appimg" src="pruefdex-icon.png" alt="PrüfDex" width="56" height="56" />
           <h3>PrüfDex</h3>
           <p><span data-lang="de">DGUV-V3-Prüfungen mobil dokumentieren – Protokoll & Plakette per QR.</span><span data-lang="en">Document DGUV-V3 inspections on the go — report & label via QR.</span></p>
@@ -347,6 +401,19 @@
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener('click', function () { setLang(this.getAttribute('data-set')); });
       }
+    })();
+
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!('IntersectionObserver' in window)) return;
+      var els = document.querySelectorAll('.reveal');
+      for (var i = 0; i < els.length; i++) els[i].classList.add('pre');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      for (var j = 0; j < els.length; j++) io.observe(els[j]);
     })();
   </script>
 </body>
