@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://craftdex.dexware.app/sitemap.xml
