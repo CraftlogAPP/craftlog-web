@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CraftDex — Dein Projekt-Tagebuch</title>
   <meta name="description" content="CraftDex ist das Projekt-Tagebuch für alles was du baust, lernst und trainierst. Schritte, Fotos, Kosten, Statistiken und Erinnerungen — an einem Ort." />
+  <meta name="theme-color" content="#13110c" />
   <!-- seo:start -->
   <link rel="icon" type="image/png" href="/craftlog-icon.png" />
   <link rel="canonical" href="https://craftdex.dexware.app/" />
@@ -23,547 +24,448 @@
   <meta name="twitter:image" content="https://craftdex.dexware.app/og-image.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"CraftDex","url":"https://craftdex.dexware.app/","description":"CraftDex ist das Projekt-Tagebuch für alles was du baust, lernst und trainierst. Schritte, Fotos, Kosten, Statistiken und Erinnerungen — an einem Ort.","operatingSystem":"Android","applicationCategory":"BusinessApplication","image":"https://craftdex.dexware.app/og-image.png","inLanguage":"de","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","description":"Kostenlos starten, Pro-Abo in der App"},"publisher":{"@type":"Organization","name":"Dexware","url":"https://dexware.app/"}}</script>
   <!-- seo:end -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ist CraftDex auch für Handwerksbetriebe?","acceptedAnswer":{"@type":"Answer","text":"Ja. Hinterlege Kunden, verfolge den Auftragsstatus und dokumentiere die Baustelle mit Fotos pro Schritt. Tipps dazu im Ratgeber Baustellendokumentation."}},{"@type":"Question","name":"Was bleibt in der kostenlosen Version?","acceptedAnswer":{"@type":"Answer","text":"Bis zu 5 Projekte mit Schritten, Materialliste, Fortschritt und Zeit-Tracking — ohne Zeitlimit."}},{"@type":"Question","name":"Gibt es CraftDex auch am PC?","acceptedAnswer":{"@type":"Answer","text":"Ja — im Dexware-Dashboard siehst du alle Aufträge mit Terminen, Stunden und Kosten im Browser."}},{"@type":"Question","name":"Wo liegen meine Daten?","acceptedAnswer":{"@type":"Answer","text":"Projekte liegen auf deinem Gerät und werden mit Konto zusätzlich synchronisiert. Wie und wo, steht in der Datenschutzerklärung."}}]}</script>
+  <link rel="preload" href="assets/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
   <style>
+    @font-face { font-family: 'Inter'; src: url('assets/inter-latin-var.woff2') format('woff2');
+      font-weight: 100 900; font-style: normal; font-display: swap; }
     :root {
-      --bg: #1C1A14;
-      --surface: #252118;
-      --surface-raised: #2E2A1E;
-      --gold: #E8C97A;
-      --gold-soft: #C9A85E;
-      --text: #F3EEE0;
-      --muted: #A89F89;
-      --faint: #6E6855;
-      --hairline: #403A2B;
-      --display: 'Fraunces', Georgia, serif;
-      --body: 'DM Sans', system-ui, sans-serif;
+      --accent: #E8C97A;
+      --on-accent: #1c1607;
+      --radius: 16px;
+      --wrap: 1120px;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background:
-        radial-gradient(1100px 620px at 18% -140px, rgba(232,201,122,.12), transparent 65%),
-        radial-gradient(900px 600px at 95% 5%, rgba(201,168,94,.08), transparent 62%),
-        radial-gradient(800px 520px at 50% 115%, rgba(232,201,122,.06), transparent 60%),
-        var(--bg);
-      background-attachment: fixed;
-      color: var(--text);
-      font-family: var(--body);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+    html.light {
+      --bg: #ffffff;
+      --bg-soft: color-mix(in oklab, #f7f7f9 96%, var(--accent));
+      --surface: #ffffff;
+      --border: color-mix(in oklab, #e7e7eb 94%, var(--accent));
+      --ink: #0d0d12;
+      --muted: #5c5c69;
+      --accent-text: color-mix(in oklab, var(--accent) 82%, #000);
+      --accent-soft: color-mix(in oklab, var(--accent) 10%, #fff);
+      --card: var(--surface);
+      --shadow: 0 1px 2px rgba(16,16,24,.04), 0 8px 24px -12px rgba(16,16,24,.12);
+      color-scheme: light;
     }
-    body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background-image:
-        linear-gradient(rgba(243,238,224,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(243,238,224,.02) 1px, transparent 1px);
-      background-size: 44px 44px;
-      -webkit-mask-image: radial-gradient(900px 620px at 50% 0%, #000 25%, transparent 75%);
-      mask-image: radial-gradient(900px 620px at 50% 0%, #000 25%, transparent 75%);
+    html.dark {
+      --bg: #13110c;
+      --bg-soft: color-mix(in oklab, #13110c 96%, #fff);
+      --surface: color-mix(in oklab, #13110c 93%, #fff);
+      --card: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      --border: rgba(255,255,255,.085);
+      --ink: #f6f5f7;
+      --muted: #aaa4ad;
+      --accent-text: color-mix(in oklab, var(--accent) 70%, #fff);
+      --accent-soft: color-mix(in oklab, var(--accent) 18%, transparent);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6);
+      color-scheme: dark;
     }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-    a { color: inherit; text-decoration: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--ink);
+      font: 400 16px/1.6 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-feature-settings: 'cv11', 'ss01'; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: var(--accent-text); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    img { max-width: 100%; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 600px) { .wrap { padding: 0 16px; } }
+    .i { width: 20px; height: 20px; flex: none; }
 
-    /* Sticky glass header */
-    .sitehead {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(28,26,20,.72);
-      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(243,238,224,.06);
-    }
-    header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 0;
-    }
-    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 700; font-size: 22px; }
-    .mark { width: 38px; height: 38px; filter: drop-shadow(0 6px 16px rgba(232,201,122,.3)); }
-    nav { display: flex; align-items: center; }
-    nav a { color: var(--muted); margin-left: 28px; font-size: 15px; transition: color .2s; }
-    nav a:hover { color: var(--gold); }
+    /* Kopfzeile */
+    .top { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--bg) 82%, transparent);
+      -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+      border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .top.scrolled { border-bottom-color: var(--border); }
+    .top .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 650; font-size: 17px; letter-spacing: -.01em; }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .brand .wm span { color: var(--accent-text); }
+    .top nav { display: flex; gap: 24px; margin-left: auto; }
+    .top nav a { color: var(--muted); font-size: 14.5px; font-weight: 500; }
+    .top nav a:hover { color: var(--ink); text-decoration: none; }
+    @media (max-width: 760px) { .top nav { display: none; } .top .btn { margin-left: auto; } }
 
-    /* Language toggle */
-    .langbar { display: inline-flex; gap: 4px; margin-left: 28px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 999px; padding: 3px; }
-    .langbar button { background: none; border: none; color: var(--muted); font-family: inherit; font-size: 13px; padding: 5px 11px; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
-    .langbar button.active { background: var(--gold); color: #211D14; font-weight: 700; }
-    body.lang-de [data-lang="en"] { display: none; }
-    body.lang-en [data-lang="de"] { display: none; }
+    /* Knöpfe */
+    .btn { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 12px;
+      font-weight: 600; font-size: 15.5px; background: var(--accent); color: var(--on-accent);
+      box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 6px 20px -8px color-mix(in oklab, var(--accent) 70%, transparent);
+      transition: transform .15s, box-shadow .15s, background .15s; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px);
+      box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 10px 26px -8px color-mix(in oklab, var(--accent) 80%, transparent); }
+    .btn.sm { height: 38px; padding: 0 16px; font-size: 14px; border-radius: 10px; }
+    .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--border); }
+    .btn.ghost:hover { background: var(--bg-soft); }
+    .btn .play { width: 14px; height: 14px; fill: currentColor; stroke: none; }
 
     /* Hero */
-    .hero { position: relative; text-align: center; padding: 80px 0 100px; }
-    .hero::before {
-      content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
-      width: 520px; height: 520px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,201,122,0.13), transparent 65%);
-      pointer-events: none;
+    .hero { position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: -20% -10% auto 40%; height: 120%; z-index: -1; pointer-events: none;
+      background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 22%, transparent), transparent 75%); }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; padding-top: 56px; padding-bottom: 40px; }
+    .kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent-text);
+      background: var(--accent-soft); padding: 6px 12px; border-radius: 999px; margin-bottom: 22px; }
+    h1 { font-size: clamp(34px, 4.6vw, 54px); line-height: 1.05; font-weight: 750; letter-spacing: -.035em; }
+    h1 em { font-style: normal; color: var(--accent-text); }
+    .sub { margin-top: 20px; font-size: 18px; line-height: 1.6; color: var(--muted); max-width: 520px; }
+    .sub strong { color: var(--ink); font-weight: 600; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hint { margin-top: 12px; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+    .hint .i { width: 15px; height: 15px; }
+    .ticks { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .ticks li { list-style: none; display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; }
+    .ticks .i { width: 17px; height: 17px; color: var(--accent-text); }
+    .shots { position: relative; height: 560px; }
+    .shots .phone { position: absolute; }
+    .shots .phone.a { left: 4%; top: 0; z-index: 2; }
+    .shots .phone.b { right: 0; top: 64px; transform: scale(.9); transform-origin: top right; opacity: .96; }
+    @media (max-width: 900px) {
+      .hero .wrap { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; }
+      .shots { height: 380px; max-width: 420px; width: 100%; margin: 0 auto;
+        -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+      .shots .phone { --pw: 210px; }
+      .shots .phone.a { left: 2%; } .shots .phone.b { top: 40px; }
     }
-    .kicker { color: var(--gold-soft); letter-spacing: 3px; text-transform: uppercase; font-size: 13px; font-weight: 500; }
-    .hero h1 {
-      font-family: var(--display); font-weight: 700; font-size: clamp(44px, 8vw, 86px);
-      line-height: 1.02; margin: 18px 0 22px; letter-spacing: -1px;
+
+    /* Handyrahmen */
+    .phone { --pw: 262px; width: var(--pw); padding: 8px; border-radius: calc(var(--pw) * .16);
+      background: linear-gradient(160deg, #2b2b31, #0e0e11 40%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 0 0 1px rgba(0,0,0,.5), 0 40px 70px -30px rgba(10,10,20,.55), 0 18px 30px -18px rgba(10,10,20,.35); }
+    .screen { position: relative; border-radius: calc(var(--pw) * .13); overflow: hidden; background: var(--bar); padding-top: calc(var(--pw) * .1); }
+    .screen::before { content: ''; position: absolute; top: calc(var(--pw) * .03); left: 50%; transform: translateX(-50%);
+      width: 30%; height: calc(var(--pw) * .075); border-radius: 99px; background: #000; }
+    .screen img { display: block; width: 100%; height: auto; }
+
+    /* Abschnitte */
+    section { padding: 80px 0; }
+    section.soft { background: var(--bg-soft); }
+    @media (max-width: 700px) {
+      section { padding: 52px 0; }
+      .head { margin-bottom: 24px; }
+      .lead { font-size: 16px; }
+      .sub { font-size: 16.5px; }
+      .cta .btn { flex: 1 1 100%; justify-content: center; }
+      .ticks { gap: 8px 16px; }
+      .rules li { padding: 14px 16px; grid-template-columns: 32px 1fr; gap: 12px; font-size: 14.5px; }
+      .rules .ic { width: 32px; height: 32px; }
     }
-    .hero h1 .gold {
-      background: linear-gradient(120deg, #F5E3B3, var(--gold-soft));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--accent-text); margin-bottom: 10px; }
+    h2 { font-size: clamp(27px, 3.4vw, 38px); line-height: 1.12; font-weight: 720; letter-spacing: -.03em; max-width: 760px; }
+    .lead { margin-top: 14px; font-size: 17px; color: var(--muted); max-width: 620px; }
+    .lead strong { color: var(--ink); font-weight: 600; }
+    .head { margin-bottom: 40px; }
+
+    /* Pflicht */
+    .duty { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+    .rules { list-style: none; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .rules li { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 18px 22px; border-top: 1px solid var(--border); font-size: 15px; color: var(--muted); }
+    .rules li:first-child { border-top: 0; }
+    .rules b { display: block; color: var(--ink); font-weight: 600; font-size: 15.5px; margin-bottom: 1px; }
+    .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); }
+    @media (max-width: 860px) { .duty { grid-template-columns: 1fr; gap: 28px; } }
+
+    /* Funktionen */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+    .feature .ic { margin-bottom: 16px; }
+    .feature h3 { font-size: 16.5px; font-weight: 640; letter-spacing: -.01em; margin-bottom: 6px; }
+    .feature p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+    @media (max-width: 900px) { .features { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .features { grid-template-columns: 1fr; gap: 10px; }
+      .feature { padding: 16px; display: grid; grid-template-columns: 36px 1fr; gap: 0 14px; }
+      .feature .ic { margin: 0; grid-row: span 2; } .feature p { font-size: 14.5px; } }
+
+    /* Ablauf */
+    .flow { display: grid; grid-template-columns: 1fr auto; gap: 72px; align-items: center; }
+    .steps { list-style: none; counter-reset: s; margin-top: 32px; }
+    .steps li { counter-increment: s; position: relative; padding: 0 0 26px 56px; }
+    .steps li:last-child { padding-bottom: 0; }
+    .steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 36px; height: 36px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 650; font-size: 15px; background: var(--accent); color: var(--on-accent); }
+    .steps li:not(:last-child)::after { content: ''; position: absolute; left: 17.5px; top: 40px; bottom: 6px; width: 1px; background: var(--border); }
+    .steps b { display: block; font-size: 17px; font-weight: 640; margin-bottom: 4px; }
+    .steps p { color: var(--muted); font-size: 15.5px; }
+    .flow .phone { --pw: 280px; }
+    @media (max-width: 860px) { .flow { grid-template-columns: 1fr; } .flow > div:last-child { display: none; } .steps { margin-top: 24px; } }
+
+    /* Preise */
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+    .plan { position: relative; display: flex; flex-direction: column; min-width: 0; background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+    .plan.pro { border-color: color-mix(in oklab, var(--accent) 55%, var(--border)); box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 55%, transparent), var(--shadow); }
+    .plan .badge { position: absolute; top: -11px; left: 28px; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; background: var(--accent); color: var(--on-accent); }
+    .plan h3 { font-size: 15px; font-weight: 600; color: var(--muted); }
+    .price { margin-top: 10px; font-size: 38px; font-weight: 720; letter-spacing: -.03em; line-height: 1.1; }
+    .price small { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+    .per { font-size: 14px; color: var(--muted); margin-top: 4px; min-height: 22px; }
+    .plan ul { list-style: none; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); display: grid; gap: 10px; }
+    .plan li { display: flex; gap: 10px; font-size: 15px; }
+    .plan li .i { width: 18px; height: 18px; margin-top: 2px; color: var(--accent-text); }
+    .plan.suite { color: #f4f4f6; border: 1px solid transparent;
+      background: linear-gradient(180deg, #121218, #0b0b0f) padding-box, linear-gradient(140deg, #3b82f6, #8b5cf6 55%, var(--accent)) border-box; }
+    .plan.suite h3, .plan.suite .per, .plan.suite .price small { color: #a3a3ad; }
+    .plan.suite ul { border-color: rgba(255,255,255,.1); }
+    .plan.suite li .i { color: #f4f4f6; }
+    .icons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 22px; }
+    .icons img { width: 26px; height: 26px; border-radius: 7px; }
+    .fine { margin-top: 20px; font-size: 13.5px; color: var(--muted); }
+    @media (max-width: 960px) { .plans { grid-template-columns: 1fr; max-width: 480px; } }
+
+    /* FAQ */
+    .faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
+    .faq details { border-bottom: 1px solid var(--border); }
+    .faq details:first-child { border-top: 1px solid var(--border); }
+    .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center;
+      padding: 18px 2px; font-weight: 600; font-size: 16px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary .i { color: var(--muted); transition: transform .2s; }
+    .faq details[open] summary .i { transform: rotate(180deg); }
+    .faq .a { padding: 0 2px 20px; color: var(--muted); font-size: 15.5px; max-width: 640px; }
+    .ask { margin-top: 18px; color: var(--muted); font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 860px) { .faq { grid-template-columns: 1fr; gap: 24px; } }
+
+    /* Familie */
+    .family { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 32px; }
+    .family a { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 6px 14px; border-radius: 14px;
+      color: var(--ink); text-align: center; transition: background .15s; }
+    .family a:hover { background: var(--surface); text-decoration: none; box-shadow: var(--shadow); }
+    .family img { width: 44px; height: 44px; border-radius: 11px; }
+    .family b { font-size: 13.5px; font-weight: 600; line-height: 1.2; }
+    .family small { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .family-row { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+    @media (max-width: 900px) { .family { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 480px) { .family { grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 20px; } .family a { padding: 10px 2px; gap: 6px; }
+      .family img { width: 40px; height: 40px; } .family b { font-size: 11.5px; } .family small { display: none; } }
+
+    /* Prüfpunkte (optional) */
+    .points { margin-top: 16px; padding: 22px 24px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+    .points p { font-size: 15px; color: var(--muted); margin-bottom: 14px; }
+    .points p b { color: var(--ink); font-weight: 600; margin-right: 4px; }
+    .points ol { list-style: none; counter-reset: p; display: flex; flex-wrap: wrap; gap: 8px; }
+    .points li { counter-increment: p; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500;
+      padding: 5px 12px 5px 5px; border-radius: 99px; background: var(--bg-soft); border: 1px solid var(--border); }
+    .points li::before { content: counter(p); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 12px; font-weight: 650; background: var(--accent-soft); color: var(--accent-text); }
+    .points.plain li { padding: 5px 12px; }
+    .points.plain li::before { display: none; }
+    @media (max-width: 600px) { .points { padding: 16px; } .points li { font-size: 13px; } }
+
+    /* Fußzeile */
+    footer { border-top: 1px solid var(--border); padding: 32px 0 40px; font-size: 14px; color: var(--muted); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; }
+    footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+    footer .note { display: block; font-size: 13px; line-height: 1.55; margin-bottom: 20px; max-width: var(--wrap); }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--ink); }
+
+    /* Handy: Feinschliff (muss nach den Grundregeln stehen) */
+    @media (max-width: 700px) {
+      .duty { gap: 22px; }
+      .plan { padding: 22px; }
+      .plan ul { margin-top: 16px; padding-top: 14px; gap: 7px; }
+      .price { font-size: 34px; }
+      .plans { gap: 20px; }
+      .faq summary { padding: 15px 2px; font-size: 15.5px; }
+      .rules li { padding: 13px 16px; }
+      .family-row .btn { order: 2; }
     }
-    @media (prefers-reduced-motion: no-preference) {
-      .hero > * { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.22,.61,.36,1) forwards; }
-      .hero > *:nth-child(2) { animation-delay: .08s; }
-      .hero > *:nth-child(3) { animation-delay: .16s; }
-      .hero > *:nth-child(4) { animation-delay: .24s; }
-      @keyframes rise { to { opacity: 1; transform: none; } }
-    }
-    .hero p { color: var(--muted); font-size: clamp(17px, 2.4vw, 21px); max-width: 600px; margin: 0 auto 40px; }
-    .cta { display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 15px 30px; border-radius: 999px; font-weight: 700; font-size: 16px;
-      transition: transform .15s, opacity .15s;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: linear-gradient(135deg, #F0D690, var(--gold-soft)); color: #211D14;
-      box-shadow: 0 10px 30px rgba(232,201,122,.25); }
-    .btn-primary:hover { box-shadow: 0 14px 38px rgba(232,201,122,.35); }
-    .btn-ghost { background: var(--surface); color: var(--gold); border: 1px solid var(--hairline); }
-    .btn-ghost:hover { border-color: var(--gold-soft); }
 
-    /* Sections */
-    section { padding: 70px 0; }
-    .section-label { color: var(--gold-soft); letter-spacing: 2px; text-transform: uppercase; font-size: 13px; font-weight: 500; text-align: center; }
-    .section-title { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 5vw, 46px); text-align: center; margin: 10px 0 50px; }
+    /* Sprachen (nur zweisprachige Seiten) */
+    html:not([data-lang="en"]) [data-l="en"], html[data-lang="en"] [data-l="de"] { display: none !important; }
+    .lang { display: flex; padding: 3px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--border); }
+    .lang button { font: inherit; font-size: 12.5px; font-weight: 600; color: var(--muted); background: none; border: 0;
+      padding: 5px 9px; border-radius: 7px; cursor: pointer; }
+    html:not([data-lang="en"]) .lang [data-set="de"], html[data-lang="en"] .lang [data-set="en"] { background: var(--accent-soft); color: var(--accent-text); }
 
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card {
-      position: relative; overflow: hidden;
-      background: linear-gradient(180deg, var(--surface), #211E15);
-      border: 1px solid var(--hairline); border-radius: 24px; padding: 32px;
-      transition: border-color .2s, transform .2s;
-    }
-    .card::before { content: ''; position: absolute; inset: 0;
-      background: radial-gradient(360px 180px at 100% 0%, rgba(232,201,122,.08), transparent 70%); opacity: .9; }
-    .card > * { position: relative; }
-    .card:hover { border-color: var(--gold-soft); transform: translateY(-4px); }
-    .card .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-raised);
-      border: 1px solid rgba(232,201,122,.18);
-      display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
-    .card h3 { font-family: var(--display); font-weight: 600; font-size: 22px; margin-bottom: 8px; }
-    .card p { color: var(--muted); font-size: 15px; }
-
-    /* More apps (cross-promo) */
-    .appimg { width: 56px; height: 56px; border-radius: 14px; display: block; object-fit: cover; margin-bottom: 18px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08); }
-    .applink { display: block; }
-    .applink .more { color: var(--gold-soft); font-size: 14px; font-weight: 700; margin-top: 14px; display: inline-block; }
-
-    /* Pricing */
-    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; max-width: 720px; margin: 0 auto; }
-    .price-card { background: linear-gradient(180deg, var(--surface), #211E15); border: 1px solid var(--hairline); border-radius: 24px; padding: 36px; transition: transform .2s; }
-    .price-card:hover { transform: translateY(-4px); }
-    .price-card.featured { border-color: var(--gold); background: linear-gradient(180deg, rgba(232,201,122,0.08), var(--surface));
-      box-shadow: 0 0 0 1px rgba(232,201,122,.3), 0 18px 44px rgba(232,201,122,.08); }
-
-    /* Scroll reveal */
-    .reveal.pre { opacity: 0; transform: translateY(18px); }
-    .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.22,.61,.36,1); }
-    .features .reveal.in:nth-child(2), .pricing .reveal.in:nth-child(2) { transition-delay: .07s; }
-    .features .reveal.in:nth-child(3) { transition-delay: .14s; }
-    .features .reveal.in:nth-child(4) { transition-delay: .21s; }
-    .features .reveal.in:nth-child(5) { transition-delay: .28s; }
-    .features .reveal.in:nth-child(6) { transition-delay: .35s; }
-    .price-card .plan { font-family: var(--display); font-size: 24px; font-weight: 600; }
-    .price-card .amount { font-family: var(--display); font-size: 46px; font-weight: 700; color: var(--gold); margin: 12px 0 4px; }
-    .price-card .per { color: var(--faint); font-size: 14px; }
-    .price-card ul { list-style: none; margin: 24px 0 0; }
-    .price-card li { padding: 9px 0; color: var(--muted); font-size: 15px; display: flex; gap: 10px; }
-    .price-card li::before { content: '✓'; color: var(--gold); font-weight: 700; }
-
-    /* Dexware Suite */
-    .suite { background: linear-gradient(180deg, rgba(232,201,122,.10), var(--surface)); border: 2px solid var(--gold);
-      border-radius: 24px; padding: 36px 32px; max-width: 900px; margin: 0 auto; box-shadow: 0 0 0 1px rgba(201,168,94,.3), 0 24px 60px rgba(0,0,0,.4); }
-    .suite-pill { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
-      color: #211D14; background: var(--gold); padding: 6px 14px; border-radius: 999px; }
-    .suite h3.st { font-family: var(--display); font-size: 27px; font-weight: 600; margin-top: 16px; }
-    .suite .sl { color: var(--muted); font-size: 15px; margin-top: 10px; }
-    .suite-prices { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
-    @media (max-width: 700px) { .suite-prices { grid-template-columns: 1fr; } }
-    .sp { background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px; padding: 24px; position: relative; }
-    .sp.best { border-color: var(--gold); box-shadow: 0 12px 34px rgba(0,0,0,.35); }
-    .sp-badge { position: absolute; top: -12px; right: 16px; font-size: 11.5px; font-weight: 700;
-      color: #052e12; background: #7BD88F; padding: 4px 11px; border-radius: 999px; }
-    .sp-name { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
-    .sp.best .sp-name { color: var(--gold); }
-    .sp-strike { color: var(--faint); font-size: 14px; text-decoration: line-through; margin-top: 10px; }
-    .sp-amount { font-family: var(--display); font-size: 34px; font-weight: 700; color: var(--gold); margin-top: 2px; }
-    .sp-amount small { font-size: 14px; font-weight: 400; color: var(--faint); }
-    .sp-note { color: var(--muted); font-size: 13px; margin-top: 6px; }
-    .suite-icons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
-    .suite-icons img { width: 42px; height: 42px; border-radius: 11px; border: 1px solid var(--hairline); background: var(--surface); }
-    .suite-list { list-style: none; margin-top: 18px; }
-    .suite-list li { font-size: 15px; padding: 7px 0 7px 24px; position: relative; color: var(--muted); }
-    .suite-list li::before { content: "★"; color: var(--gold); position: absolute; left: 0; }
-    .suite-how { color: var(--muted); font-size: 13.5px; margin-top: 18px; margin-bottom: 20px; }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--hairline); padding: 40px 0; text-align: center; color: var(--faint); font-size: 14px; }
-    footer a { color: var(--muted); margin: 0 12px; }
-    footer a:hover { color: var(--gold); }
-    .foot-brand { font-family: var(--display); font-weight: 600; color: var(--text); margin-bottom: 12px; font-size: 18px; }
+    /* Einblenden beim Scrollen — nur mit JS und ohne reduzierte Bewegung */
+    .js .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+    .js .rv.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
   </style>
+  <script>document.documentElement.classList.add('js');(function(){var l;try{l=localStorage.getItem('lang')}catch(e){}if(l!=='de'&&l!=='en')l=(navigator.language||'de').toLowerCase().indexOf('de')===0?'de':'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l})()</script>
 </head>
-<body class="lang-de">
-  <div class="sitehead">
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <svg class="mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="100" height="100" rx="24" fill="#252118"/>
-          <path d="M68 32 A24 24 0 1 0 68 68" stroke="#E8C97A" stroke-width="13" stroke-linecap="round" fill="none"/>
-        </svg>
-        CraftDex
-      </div>
-      <nav>
-        <a href="#features">Features</a>
-        <a href="#preise"><span data-lang="de">Preise</span><span data-lang="en">Pricing</span></a>
-        <a href="#apps"><span data-lang="de">Apps</span><span data-lang="en">Apps</span></a>
-        <a href="ratgeber-baustellendokumentation.html" data-lang="de">Ratgeber</a>
-        <a href="#download">Download</a>
-        <span class="langbar">
-          <button type="button" data-set="de">DE</button>
-          <button type="button" data-set="en">EN</button>
-        </span>
-      </nav>
-    </header>
-  </div>
-  </div>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="CraftDex Startseite"><img src="assets/apps/craftdex.webp" alt="" width="32" height="32" /><span class="wm">Craft<span>Dex</span></span></a>
+      <nav aria-label="Seitennavigation"><a href="#funktionen"><span data-l="de">Funktionen</span><span data-l="en">Features</span></a><a href="#preise"><span data-l="de">Preise</span><span data-l="en">Pricing</span></a><a href="#faq">FAQ</a><a href="ratgeber-baustellendokumentation.html"><span data-l="de">Ratgeber</span><span data-l="en">Guides</span></a></nav>
+      <div class="lang" role="group" aria-label="Sprache / Language"><button type="button" data-set="de">DE</button><button type="button" data-set="en">EN</button></div>
+      <a class="btn sm" href="https://play.google.com/store/apps/details?id=com.craftlog.app" target="_blank" rel="noopener"><span data-l="de">App laden</span><span data-l="en">Get the app</span></a>
+    </div>
+  </header>
 
-  <div class="wrap">
+  <main>
     <div class="hero">
-      <div class="kicker">
-        <span data-lang="de">Dein Projekt-Tagebuch</span>
-        <span data-lang="en">Your project journal</span>
-      </div>
-      <h1>
-        <span data-lang="de">Halt fest, <span class="gold">was du baust.</span></span>
-        <span data-lang="en">Capture <span class="gold">what you build.</span></span>
-      </h1>
-      <p>
-        <span data-lang="de">Vom Schneidebrett über den Halbmarathon bis zur Sprachprüfung — CraftDex dokumentiert jeden Schritt, Fotos, Kosten und deinen Fortschritt. Mit Statistiken, Streak und Erinnerungen.</span>
-        <span data-lang="en">From a cutting board to a half marathon to a language exam — CraftDex documents every step, photos, costs and your progress. With statistics, streak and reminders.</span>
-      </p>
-      <div class="cta" id="download">
-        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.craftlog.app" target="_blank" rel="noopener">Google Play</a>
+      <div class="wrap">
+        <div>
+          <span class="kicker"><span data-l="de">Dein Projekt-Tagebuch</span><span data-l="en">Your project journal</span></span>
+          <h1><span data-l="de">Halt fest, <em>was du baust.</em></span><span data-l="en">Capture <em>what you build.</em></span></h1>
+          <p class="sub"><span data-l="de">Vom Küchentisch bis zum Gartenhaus — CraftDex dokumentiert jeden Schritt, <strong>Fotos, Material, Stunden und Kosten</strong>. Mit Statistiken und Erinnerungen.</span><span data-l="en">From a kitchen table to a garden shed — CraftDex documents every step, <strong>photos, materials, hours and costs</strong>. With statistics and reminders.</span></p>
+          <div class="cta">
+            <a class="btn" id="store-link" href="https://play.google.com/store/apps/details?id=com.craftlog.app" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 6 3.5z"/></svg><span data-l="de">Kostenlos bei Google Play</span><span data-l="en">Free on Google Play</span></a>
+            <a class="btn ghost" href="#ablauf"><span data-l="de">So funktioniert's</span><span data-l="en">How it works</span></a>
+          </div>
+          <p class="hint"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></svg><span data-l="de">Android jetzt · iPhone & iPad bald</span><span data-l="en">Android now · iPhone & iPad soon</span></p>
+          <ul class="ticks"><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Fotos pro Schritt</span><span data-l="en">Photos per step</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Zeit- und Kosten-Tracking</span><span data-l="en">Time & cost tracking</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Für Handwerk und Hobby</span><span data-l="en">For trades and hobbies</span></li></ul>
+        </div>
+        <div class="shots" aria-label="Screenshots der App">
+          <div class="phone a"><div class="screen" style="--bar:#1c1a14"><img src="assets/shots/hero-1.webp" width="600" height="1022" alt="CraftDex: Projekte mit Fortschritt und Stunden" decoding="async"></div></div>
+          <div class="phone b"><div class="screen" style="--bar:#1c1a14"><img src="assets/shots/hero-2.webp" width="600" height="1022" alt="CraftDex: Projekt mit Schritten und Materialliste" decoding="async"></div></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="wrap">
-    <section id="features">
-      <div class="section-label">
-        <span data-lang="de">Was drin ist</span>
-        <span data-lang="en">What's inside</span>
+    
+
+    <section id="funktionen">
+      <div class="wrap">
+        <div class="head rv">
+          <p class="eyebrow"><span data-l="de">Funktionen</span><span data-l="en">Features</span></p>
+          <h2><span data-l="de">Alles für deine Projekte</span><span data-l="en">Everything for your projects</span></h2>
+          <p class="lead"><span data-l="de">Einfache Projekte bleiben einfach — Aufträge bekommen alles, was sie brauchen.</span><span data-l="en">Simple projects stay simple — client jobs get everything they need.</span></p>
+        </div>
+        <div class="features">
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 2 2 4-4" /><path d="m3 7 2 2 4-4" /><path d="M13 6h8" /><path d="M13 12h8" /><path d="M13 18h8" /></svg></span><h3><span data-l="de">Schritte & Material</span><span data-l="en">Steps & materials</span></h3><p><span data-l="de">Arbeitsschritte abhaken, Materialliste führen — der Fortschritt rechnet sich von selbst.</span><span data-l="en">Check off steps and keep your material list — progress is calculated automatically.</span></p></article>
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg></span><h3><span data-l="de">Fotos pro Schritt</span><span data-l="en">Photos per step</span></h3><p><span data-l="de">Vom Rohzustand bis zum fertigen Detail — dazu ein Titelfoto fürs ganze Projekt.</span><span data-l="en">From the raw state to the finished detail — plus a cover photo for the whole project.</span></p></article>
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="10" x2="14" y1="2" y2="2" /><line x1="12" x2="15" y1="14" y2="11" /><circle cx="12" cy="14" r="8" /></svg></span><h3><span data-l="de">Zeit-Tracking</span><span data-l="en">Time tracking</span></h3><p><span data-l="de">Aufwand schätzen und echte Stunden mit einem Tipp loggen, in 30-Minuten-Schritten.</span><span data-l="en">Estimate the effort and log real hours with one tap, in 30-minute increments.</span></p></article>
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></svg></span><h3><span data-l="de">Kosten & Budget</span><span data-l="en">Costs & budget</span></h3><p><span data-l="de">Alle Ausgaben erfassen, Budget setzen und sofort sehen, wenn es knapp wird.</span><span data-l="en">Record all expenses, set a budget and see right away when it gets tight.</span></p></article>
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg></span><h3><span data-l="de">Kunden & Auftragsstatus</span><span data-l="en">Customers & job status</span></h3><p><span data-l="de">Kunde hinterlegen und Status von Angebot über In Arbeit bis Abgerechnet — komplett optional.</span><span data-l="en">Store the customer and track status from quote to invoiced — fully optional.</span></p></article>
+          <article class="feature rv"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg></span><h3><span data-l="de">Statistiken</span><span data-l="en">Statistics</span></h3><p><span data-l="de">Stunden pro Monat, Kategorien, Top-Projekte und Gesamtkosten auf einen Blick.</span><span data-l="en">Hours per month, categories, top projects and total costs at a glance.</span></p></article>
+        </div>
+        <div class="points rv plain">
+          <p><b><span data-l="de">Außerdem dabei</span><span data-l="en">Also included</span></b></p>
+          <ol><li><span data-l="de">Kategorien & Suche</span><span data-l="en">Categories & search</span></li><li><span data-l="de">Erinnerungen & Deadlines</span><span data-l="en">Reminders & deadlines</span></li><li><span data-l="de">Einkaufsliste teilen</span><span data-l="en">Share shopping list</span></li><li><span data-l="de">Projekt teilen</span><span data-l="en">Share project</span></li><li><span data-l="de">Streak & Abzeichen</span><span data-l="en">Streak & badges</span></li><li><span data-l="de">Cloud-Sync</span><span data-l="en">Cloud sync</span></li></ol>
+        </div>
       </div>
-      <h2 class="section-title">
-        <span data-lang="de">Alles für deine Projekte</span>
-        <span data-lang="en">Everything for your projects</span>
-      </h2>
-      <div class="features">
-        <div class="card reveal"><div class="ic">📋</div>
-          <h3><span data-lang="de">Schritte & Material</span><span data-lang="en">Steps & materials</span></h3>
-          <p><span data-lang="de">Hak Arbeitsschritte ab und führ deine Materialliste — der Fortschritt rechnet sich von selbst.</span><span data-lang="en">Check off work steps and keep your material list — progress is calculated automatically.</span></p>
+    </section>
+
+    <section class="soft" id="ablauf">
+      <div class="wrap flow">
+        <div class="rv">
+          <p class="eyebrow"><span data-l="de">So funktioniert's</span><span data-l="en">How it works</span></p>
+          <h2><span data-l="de">So einfach geht’s</span><span data-l="en">It’s that simple</span></h2>
+          <ol class="steps">
+            <li><b><span data-l="de">Projekt anlegen</span><span data-l="en">Create a project</span></b><p><span data-l="de">Titel, Kategorie und optional Kunde, Budget oder Deadline.</span><span data-l="en">Title, category and optionally customer, budget or deadline.</span></p></li>
+            <li><b><span data-l="de">Schritte dokumentieren</span><span data-l="en">Document the steps</span></b><p><span data-l="de">Schritt abhaken, Foto dazu, Stunden und Material erfassen.</span><span data-l="en">Check off a step, add a photo, log hours and materials.</span></p></li>
+            <li><b><span data-l="de">Fortschritt sehen und teilen</span><span data-l="en">See and share progress</span></b><p><span data-l="de">Statistiken auswerten oder eine aufgeräumte Zusammenfassung teilen.</span><span data-l="en">Review statistics or share a tidy summary.</span></p></li>
+          </ol>
         </div>
-        <div class="card reveal"><div class="ic">📷</div>
-          <h3><span data-lang="de">Fotos pro Schritt</span><span data-lang="en">Photos per step</span></h3>
-          <p><span data-lang="de">Füge jedem einzelnen Schritt ein Foto hinzu — vom Rohzustand bis zum fertigen Detail. Dazu ein Titelfoto fürs gesamte Projekt.</span><span data-lang="en">Add a photo to every single step — from the raw state to the finished detail. Plus a cover photo for the whole project.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">⏱️</div>
-          <h3><span data-lang="de">Zeit-Tracking</span><span data-lang="en">Time tracking</span></h3>
-          <p><span data-lang="de">Schätz den Aufwand und log deine echten Stunden mit einem Tipp — in 30-Minuten-Schritten.</span><span data-lang="en">Estimate the effort and log your real hours with one tap — in 30-minute increments.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">💶</div>
-          <h3><span data-lang="de">Kosten-Tracker</span><span data-lang="en">Cost tracker</span></h3>
-          <p><span data-lang="de">Erfasse alle Ausgaben mit Name und Betrag, setz ein Budget und sieh sofort, wenn du es überziehst.</span><span data-lang="en">Record all expenses with name and amount, set a budget and see immediately when you exceed it.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">🧾</div>
-          <h3><span data-lang="de">Kunden & Auftragsstatus</span><span data-lang="en">Customers & job status</span></h3>
-          <p><span data-lang="de">Für Aufträge: hinterleg Kunde mit Name, Telefon und Adresse und setz den Status von Angebot über In Arbeit bis Abgerechnet. Komplett optional — einfache Projekte bleiben einfach.</span><span data-lang="en">For client jobs: store the customer with name, phone and address and set the status from quote through in progress to invoiced. Fully optional — simple projects stay simple.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">📊</div>
-          <h3><span data-lang="de">Statistiken & Charts</span><span data-lang="en">Statistics & charts</span></h3>
-          <p><span data-lang="de">Stunden pro Monat als Balkendiagramm, Kategorien-Auswertung, Top-Projekte und Gesamtkosten auf einen Blick.</span><span data-lang="en">Hours per month as a bar chart, category breakdown, top projects and total costs at a glance.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">🗂️</div>
-          <h3><span data-lang="de">Kategorien & Suche</span><span data-lang="en">Categories & search</span></h3>
-          <p><span data-lang="de">Handwerk, Arbeit, Sport, Lernen — mit Unterkategorien. Filterchips und Suche direkt auf der Startseite.</span><span data-lang="en">Craft, work, sports, learning — with subcategories. Filter chips and search right on the home screen.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">🔥</div>
-          <h3><span data-lang="de">Streak & Abzeichen</span><span data-lang="en">Streak & badges</span></h3>
-          <p><span data-lang="de">Sieh wie viele Tage du schon dabei bist und sammel Abzeichen für Meilensteine wie dein erstes Projekt oder 100 Stunden.</span><span data-lang="en">See how many days you've been at it and collect badges for milestones like your first project or 100 hours.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">🔔</div>
-          <h3><span data-lang="de">Erinnerungen & Deadlines</span><span data-lang="en">Reminders & deadlines</span></h3>
-          <p><span data-lang="de">Setz eine Deadline für das gesamte Projekt und lege pro Schritt eine individuelle Erinnerung fest.</span><span data-lang="en">Set a deadline for the whole project and a custom reminder for each step.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">🛒</div>
-          <h3><span data-lang="de">Einkaufsliste teilen</span><span data-lang="en">Share shopping list</span></h3>
-          <p><span data-lang="de">Schick deine Materialliste mit einem Tipp als fertige Einkaufsliste — per Messenger, Mail oder Notiz-App.</span><span data-lang="en">Send your material list as a ready-made shopping list with one tap — via messenger, email or notes app.</span></p>
-        </div>
-        <div class="card reveal"><div class="ic">↗</div>
-          <h3><span data-lang="de">Projekt teilen</span><span data-lang="en">Share project</span></h3>
-          <p><span data-lang="de">Zeig deine Fortschritte mit einer aufgeräumten Zusammenfassung: Titel, Kategorie, Schritte und Stunden.</span><span data-lang="en">Show your progress with a tidy summary: title, category, steps and hours.</span></p>
-        </div>
+        <div class="rv"><div class="phone lazy"><div class="screen" style="--bar:#1c1a14"><img src="assets/shots/ablauf.webp" width="600" height="1022" alt="CraftDex: Jeder Schritt dokumentiert" decoding="async" loading="lazy"></div></div></div>
       </div>
     </section>
 
     <section id="preise">
-      <div class="section-label">
-        <span data-lang="de">Preise</span>
-        <span data-lang="en">Pricing</span>
-      </div>
-      <h2 class="section-title">
-        <span data-lang="de">Fang gratis an</span>
-        <span data-lang="en">Start for free</span>
-      </h2>
-      <div class="pricing">
-        <div class="price-card reveal">
-          <div class="plan">Free</div>
-          <div class="amount"><span data-lang="de">0 €</span><span data-lang="en">€0</span></div>
-          <div class="per"><span data-lang="de">für immer</span><span data-lang="en">forever</span></div>
-          <ul>
-            <li><span data-lang="de">Bis zu 5 Projekte</span><span data-lang="en">Up to 5 projects</span></li>
-            <li><span data-lang="de">Schritte & Materialliste</span><span data-lang="en">Steps & material list</span></li>
-            <li><span data-lang="de">Fortschritt & Zeit-Tracking</span><span data-lang="en">Progress & time tracking</span></li>
-            <li><span data-lang="de">Kategorien & Suchfunktion</span><span data-lang="en">Categories & search</span></li>
-          </ul>
+      <div class="wrap">
+        <div class="head rv">
+          <p class="eyebrow"><span data-l="de">Preise</span><span data-l="en">Pricing</span></p>
+          <h2><span data-l="de">Kostenlos starten, bei Bedarf upgraden.</span><span data-l="en">Start free, upgrade when you need it.</span></h2>
         </div>
-        <div class="price-card featured reveal">
-          <div class="plan">Pro</div>
-          <div class="amount"><span data-lang="de">2,99 €</span><span data-lang="en">€2.99</span></div>
-          <div class="per"><span data-lang="de">pro Monat — oder 19,99 € / Jahr (2 Monate gratis)</span><span data-lang="en">per month — or €19.99 / year (2 months free)</span></div>
-          <ul>
-            <li><span data-lang="de">Unbegrenzte Projekte</span><span data-lang="en">Unlimited projects</span></li>
-            <li><span data-lang="de">Fotos ohne Limit — auch pro Schritt</span><span data-lang="en">Unlimited photos — also per step</span></li>
-            <li><span data-lang="de">Vollständige Statistiken & Charts</span><span data-lang="en">Full statistics & charts</span></li>
-            <li><span data-lang="de">Kosten-Tracker & Budget-Warnung</span><span data-lang="en">Cost tracker & budget alerts</span></li>
-            <li><span data-lang="de">Erinnerungen & Deadlines</span><span data-lang="en">Reminders & deadlines</span></li>
-            <li><span data-lang="de">Einkaufsliste teilen</span><span data-lang="en">Share shopping list</span></li>
-            <li><span data-lang="de">Streak & Abzeichen</span><span data-lang="en">Streak & badges</span></li>
-            <li><span data-lang="de">Share-Karten</span><span data-lang="en">Share cards</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Web-Dashboard -->
-      <div class="suite" id="dashboard" style="margin-top:30px;">
-        <span class="suite-pill"><span data-lang="de">💻 Neu: Web-Dashboard — inklusive</span><span data-lang="en">💻 New: Web dashboard — included</span></span>
-        <h3 class="st"><span data-lang="de">CraftDex auch am PC.</span><span data-lang="en">CraftDex on your desktop.</span></h3>
-        <p style="margin:10px 0 16px;opacity:.85"><span data-lang="de">Alle Aufträge mit Terminen, Stunden und Kosten — direkt im Browser. Anmeldung mit deinem App-Konto — wie in der App auch per Google, oder mit E-Mail + Passwort.</span><span data-lang="en">All jobs with schedules, hours and costs — right in your browser. Sign in with your app account — with Google, just like in the app, or with email + password.</span></p>
-        <a class="btn btn-primary" href="https://dashboard.dexware.app/app/craftdex"><span data-lang="de">Dashboard öffnen →</span><span data-lang="en">Open dashboard →</span></a>
-      </div>
-
-      <!-- Dexware Suite Bundle -->
-      <div class="suite" id="suite" style="margin-top:30px;">
-        <span class="suite-pill"><span data-lang="de">Dexware Suite — ein Abo, alle Apps</span><span data-lang="en">Dexware Suite — one subscription, all apps</span></span>
-        <h3 class="st"><span data-lang="de">Alle 14 Dexware-Apps. Ein Abo.</span><span data-lang="en">All 14 Dexware apps. One subscription.</span></h3>
-        <p class="sl">
-          <span data-lang="de">Die Suite kostet so viel wie unsere teuerste Einzel-App — und schaltet <b>alle</b> Dexware-Apps auf allen deinen Geräten frei. Neue Apps kommen automatisch dazu, ohne Aufpreis.</span>
-          <span data-lang="en">The Suite costs the same as our most expensive single app — and unlocks <b>every</b> Dexware app on all your devices. New apps are automatically included, at no extra cost.</span>
-        </p>
-        <div class="suite-prices">
-          <div class="sp">
-            <div class="sp-name"><span data-lang="de">Monatlich</span><span data-lang="en">Monthly</span></div>
-            <div class="sp-strike"><span data-lang="de">über 90 € — alle Apps einzeln</span><span data-lang="en">over €90 — all apps separately</span></div>
-            <div class="sp-amount"><span data-lang="de">29,99 €</span><span data-lang="en">€29.99</span> <small><span data-lang="de">/ Monat</span><span data-lang="en">/ month</span></small></div>
-            <div class="sp-note"><span data-lang="de">Der Preis unserer teuersten Einzel-App — über 65 % günstiger als alles einzeln.</span><span data-lang="en">The price of our most expensive single app — over 65% cheaper than everything separately.</span></div>
+        <div class="plans">
+          <div class="plan rv">
+            <h3>Free</h3>
+            <p class="price">0 €</p>
+            <p class="per"><span data-l="de">für immer</span><span data-l="en">forever</span></p>
+            <ul><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Bis zu 5 Projekte</span><span data-l="en">Up to 5 projects</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Schritte & Materialliste</span><span data-l="en">Steps & material list</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Fortschritt & Zeit-Tracking</span><span data-l="en">Progress & time tracking</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Kategorien & Suche</span><span data-l="en">Categories & search</span></li></ul>
           </div>
-          <div class="sp best">
-            <span class="sp-badge"><span data-lang="de">4 Monate geschenkt · −33 %</span><span data-lang="en">4 months free · −33%</span></span>
-            <div class="sp-name"><span data-lang="de">Jährlich</span><span data-lang="en">Yearly</span></div>
-            <div class="sp-strike"><span data-lang="de">statt 359,88 € (12 × 29,99 €)</span><span data-lang="en">instead of €359.88 (12 × €29.99)</span></div>
-            <div class="sp-amount"><span data-lang="de">239,99 €</span><span data-lang="en">€239.99</span> <small><span data-lang="de">/ Jahr</span><span data-lang="en">/ year</span></small></div>
-            <div class="sp-note"><span data-lang="de">Entspricht 20,00 € im Monat — du zahlst nur 8 von 12 Monaten.</span><span data-lang="en">Equals €20.00 per month — you only pay 8 of 12 months.</span></div>
+          <div class="plan pro rv">
+            <span class="badge"><span data-l="de">Empfohlen</span><span data-l="en">Recommended</span></span>
+            <h3>CraftDex Pro</h3>
+            <p class="price">2,99 € <small><span data-l="de">/ Monat</span><span data-l="en">/ month</span></small></p>
+            <p class="per"><span data-l="de">oder 19,99 € im Jahr (2 Monate gratis)</span><span data-l="en">or €19.99 per year (2 months free)</span></p>
+            <ul><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Unbegrenzte Projekte</span><span data-l="en">Unlimited projects</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Fotos ohne Limit — auch pro Schritt</span><span data-l="en">Unlimited photos — also per step</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Statistiken & Charts</span><span data-l="en">Statistics & charts</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Kosten-Tracker & Budget-Warnung</span><span data-l="en">Cost tracker & budget alerts</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Erinnerungen, Einkaufsliste, Share-Karten</span><span data-l="en">Reminders, shopping list, share cards</span></li></ul>
+          </div>
+          <div class="plan suite rv">
+            <h3>Dexware Suite</h3>
+            <p class="price">29,99 € <small><span data-l="de">/ Monat</span><span data-l="en">/ month</span></small></p>
+            <p class="per"><span data-l="de">oder 239,99 € im Jahr · entspricht 20 € im Monat</span><span data-l="en">or 239,99 € per year · that is €20 per month</span></p>
+            <ul>
+              <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Alle 15 Dexware-Apps freigeschaltet</span><span data-l="en">All 15 Dexware apps unlocked</span></li>
+              <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Neue Apps automatisch dabei</span><span data-l="en">New apps included automatically</span></li>
+              <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Ein Abo für alle Geräte</span><span data-l="en">One subscription for all devices</span></li>
+            </ul>
+            <div class="icons" aria-hidden="true"><img src="assets/apps/gurtdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/toredex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/geruestdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/feuerdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/leiterdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/regaldex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/spieldex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/winterdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/kfzdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/pruefdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/schutzdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/baumdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/tourdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/craftdex.webp" alt="" width="26" height="26" loading="lazy" /><img src="assets/apps/dokudex.webp" alt="" width="26" height="26" loading="lazy" /></div>
           </div>
         </div>
-        <div class="suite-icons">
-          <img src="toredex-icon.png" alt="ToreDex" title="ToreDex" />
-          <img src="geruestdex-icon.png" alt="GerüstDex" title="GerüstDex" />
-          <img src="regaldex-icon.png" alt="RegalDex" title="RegalDex" />
-          <img src="leiterdex-icon.png" alt="LeiterDex" title="LeiterDex" />
-          <img src="feuerdex-icon.png" alt="FeuerDex" title="FeuerDex" />
-          <img src="spieldex-icon.png" alt="SpielDex" title="SpielDex" />
-          <img src="kfzdex-icon.png" alt="KfzDex" title="KfzDex" />
-          <img src="pruefdex-icon.png" alt="PrüfDex" title="PrüfDex" />
-          <img src="schutzheld-icon.png" alt="SchutzDex" title="SchutzDex" />
-          <img src="baumdex-icon.png" alt="BaumDex" title="BaumDex" />
-          <img src="winterdex-icon.png" alt="WinterDex" title="WinterDex" />
-          <img src="routelog-icon.png" alt="TourDex" title="TourDex" />
-          <img src="craftlog-icon.png" alt="CraftDex" title="CraftDex" />
-          <img src="archio-icon.png" alt="DokuDex" title="DokuDex" />
-        </div>
-        <ul class="suite-list">
-          <li><span data-lang="de">Alle 14 Apps inklusive — vom Projekt-Tagebuch bis zum Winterdienst</span><span data-lang="en">All 12 apps included — from project journal to winter service</span></li>
-          <li><span data-lang="de">Alle zukünftigen Dexware-Apps automatisch dabei</span><span data-lang="en">All future Dexware apps automatically included</span></li>
-          <li><span data-lang="de">Einmal kaufen — in jeder App freigeschaltet</span><span data-lang="en">Buy once — unlocked in every app</span></li>
-          <li><span data-lang="de">Jederzeit kündbar</span><span data-lang="en">Cancel anytime</span></li>
-        </ul>
-        <p class="suite-how"><span data-lang="de">Erhältlich direkt in jeder Dexware-App: einfach in der App auf „Pro werden" tippen und die Dexware Suite wählen.</span><span data-lang="en">Available right inside every Dexware app: just tap “Go Pro” in the app and choose the Dexware Suite.</span></p>
-        <a href="https://dexware.app/" target="_blank" rel="noopener" class="btn btn-primary"><span data-lang="de">Mehr zur Dexware Suite →</span><span data-lang="en">More about the Dexware Suite →</span></a>
-        <p class="suite-how" style="margin-top:14px;">
-          <span data-lang="de">💻 Fürs Web gibt's einen Haupteinstieg: <a href="https://dashboard.dexware.app" target="_blank" rel="noopener">dashboard.dexware.app</a> — die Übersicht aller App-Dashboards. Dort wählst du einfach die App, deren Dashboard du öffnen willst.</span>
-          <span data-lang="en">💻 On the web there's one main entry point: <a href="https://dashboard.dexware.app" target="_blank" rel="noopener">dashboard.dexware.app</a> — the overview of all app dashboards. Simply pick the app whose dashboard you want to open.</span>
-        </p>
+        <p class="fine"><span data-l="de">Abschluss direkt in der App über Google Play · jederzeit kündbar · Preise inkl. MwSt.</span><span data-l="en">Subscribe in the app via Google Play · cancel anytime · prices incl. VAT</span></p>
       </div>
     </section>
 
-    <section id="apps">
-      <div class="section-label">
-        <span data-lang="de">Die Dexware-Familie</span>
-        <span data-lang="en">The Dexware family</span>
+    <section class="soft" id="faq">
+      <div class="wrap faq">
+        <div class="rv">
+          <p class="eyebrow">FAQ</p>
+          <h2><span data-l="de">Häufige Fragen</span><span data-l="en">Frequently asked questions</span></h2>
+          <p class="ask"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg><span><span data-l="de">Noch etwas offen?</span><span data-l="en">Anything else?</span> <a href="mailto:support@dexware.app?subject=CraftDex">support@dexware.app</a></span></p>
+        </div>
+        <div class="rv">
+          <details><summary><span data-l="de">Ist CraftDex auch für Handwerksbetriebe?</span><span data-l="en">Is CraftDex suitable for trade businesses?</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="a"><span data-l="de">Ja. Hinterlege Kunden, verfolge den Auftragsstatus und dokumentiere die Baustelle mit Fotos pro Schritt. Tipps dazu im <a href="ratgeber-baustellendokumentation.html">Ratgeber Baustellendokumentation</a>.</span><span data-l="en">Yes. Store customers, track job status and document the site with photos per step. Tips in our <a href="ratgeber-baustellendokumentation.html">site documentation guide</a> (German).</span></div></details>
+          <details><summary><span data-l="de">Was bleibt in der kostenlosen Version?</span><span data-l="en">What does the free version include?</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="a"><span data-l="de">Bis zu 5 Projekte mit Schritten, Materialliste, Fortschritt und Zeit-Tracking — ohne Zeitlimit.</span><span data-l="en">Up to 5 projects with steps, material list, progress and time tracking — with no time limit.</span></div></details>
+          <details><summary><span data-l="de">Gibt es CraftDex auch am PC?</span><span data-l="en">Is there a desktop version?</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="a"><span data-l="de">Ja — im <a href="https://dashboard.dexware.app/app/craftdex">Dexware-Dashboard</a> siehst du alle Aufträge mit Terminen, Stunden und Kosten im Browser.</span><span data-l="en">Yes — the <a href="https://dashboard.dexware.app/app/craftdex">Dexware dashboard</a> shows all jobs with dates, hours and costs in your browser.</span></div></details>
+          <details><summary><span data-l="de">Wo liegen meine Daten?</span><span data-l="en">Where is my data stored?</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="a"><span data-l="de">Projekte liegen auf deinem Gerät und werden mit Konto zusätzlich synchronisiert. Wie und wo, steht in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span><span data-l="en">Projects are stored on your device and synced with an account. Details in the <a href="datenschutz.html">privacy policy</a>.</span></div></details>
+        </div>
       </div>
-      <h2 class="section-title">
-        <span data-lang="de">Entdecke die ganze Dexware</span>
-        <span data-lang="en">Discover the whole Dexware suite</span>
-      </h2>
-      <div class="features">
-        <a class="card applink reveal" href="https://toredex.dexware.app">
-          <img class="appimg" src="toredex-icon.png" alt="ToreDex" width="56" height="56" />
-          <h3>ToreDex</h3>
-          <p><span data-lang="de">Tor- &amp; Türprüfung nach ASR A1.7 / DGUV 208-022 — Prüfungen &amp; Mängel, Prüfbericht als PDF.</span><span data-lang="en">Powered door &amp; gate inspection to ASR A1.7 / DGUV 208-022 — checks &amp; defects, PDF report.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://geruestdex.dexware.app">
-          <img class="appimg" src="geruestdex-icon.png" alt="GerüstDex" width="56" height="56" />
-          <h3>GerüstDex</h3>
-          <p><span data-lang="de">Gerüstprüfung nach TRBS 2121-1 — Prüfungen &amp; Mängel, Prüfbericht als PDF.</span><span data-lang="en">Scaffolding inspection to TRBS 2121-1 — checks &amp; defects, PDF inspection report.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://regaldex.dexware.app">
-          <img class="appimg" src="regaldex-icon.png" alt="RegalDex" width="56" height="56" />
-          <h3>RegalDex</h3>
-          <p><span data-lang="de">Regalinspektion nach DIN EN 15635 — Schäden im Ampelverfahren, Prüfbericht als PDF.</span><span data-lang="en">Rack inspection to DIN EN 15635 — traffic-light damage workflow, PDF inspection report.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://leiterdex.dexware.app">
-          <img class="appimg" src="leiterdex-icon.png" alt="LeiterDex" width="56" height="56" />
-          <h3>LeiterDex</h3>
-          <p><span data-lang="de">Leitern- &amp; Tritte-Prüfung nach BetrSichV &amp; DGUV 208-016 — Prüfbericht als PDF.</span><span data-lang="en">Ladder &amp; step inspection to BetrSichV &amp; DGUV 208-016 — PDF inspection report.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://feuerdex.dexware.app">
-          <img class="appimg" src="feuerdex-icon.png" alt="FeuerDex" width="56" height="56" />
-          <h3>FeuerDex</h3>
-          <p><span data-lang="de">Feuerlöscher-Prüfung nach ASR A2.2 &amp; DIN 14406-4 — Prüfbericht als PDF.</span><span data-lang="en">Fire extinguisher inspection to ASR A2.2 &amp; DIN 14406-4 — PDF inspection report.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://spieldex.dexware.app">
-          <img class="appimg" src="spieldex-icon.png" alt="SpielDex" width="56" height="56" />
-          <h3>SpielDex</h3>
-          <p><span data-lang="de">Spielplatzkontrolle nach DIN EN 1176 — Geräte prüfen, Mängel dokumentieren, Kontrollbuch als PDF.</span><span data-lang="en">Playground inspection to DIN EN 1176 — inspect equipment, log defects, PDF logbook.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://kfzdex.dexware.app">
-          <img class="appimg" src="kfzdex-icon.png" alt="KfzDex" width="56" height="56" />
-          <h3>KfzDex</h3>
-          <p><span data-lang="de">Fuhrpark-Verwaltung – UVV-Prüfung, Führerscheinkontrolle & Fristen prüffest im Griff.</span><span data-lang="en">Fleet management — vehicle inspections, licence checks & deadlines under control.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://winterdex.dexware.app">
-          <img class="appimg" src="winterdex-icon.png" alt="WinterDex" width="56" height="56" />
-          <h3>WinterDex</h3>
-          <p><span data-lang="de">Winterdienst-Nachweis – Räum- & Streueinsätze gerichtsfest dokumentieren.</span><span data-lang="en">Winter service log — court-proof records of clearing & gritting.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://play.google.com/store/apps/details?id=com.routelog.app">
-          <img class="appimg" src="routelog-icon.png" alt="TourDex" width="56" height="56" />
-          <h3>TourDex</h3>
-          <p><span data-lang="de">Automatisches Fahrtenbuch für Selbstständige.</span><span data-lang="en">Automatic mileage logbook for the self-employed.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://play.google.com/store/apps/details?id=com.archio.app">
-          <img class="appimg" src="archio-icon.png" alt="DokuDex" width="56" height="56" />
-          <h3>DokuDex</h3>
-          <p><span data-lang="de">Dokumente scannen und per KI verstehen – Belege, Verträge und mehr.</span><span data-lang="en">Scan documents and understand them with AI — receipts, contracts & more.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://play.google.com/store/apps/details?id=com.baumdex.app">
-          <img class="appimg" src="baumdex-icon.png" alt="BaumDex" width="56" height="56" />
-          <h3>BaumDex</h3>
-          <p><span data-lang="de">Digitales Baumkataster & Baumkontrolle für Kommunen & GaLaBau.</span><span data-lang="en">Digital tree register & inspection for municipalities & landscapers.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://schutzdex.dexware.app">
-          <img class="appimg" src="schutzheld-icon.png" alt="SchutzDex" width="56" height="56" />
-          <h3>SchutzDex</h3>
-          <p><span data-lang="de">Arbeitsschutz-Unterweisung & Gefährdungsbeurteilung – prüffest dokumentiert.</span><span data-lang="en">Workplace-safety briefings & risk assessment — audit-proof.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-        <a class="card applink reveal" href="https://pruefdex.dexware.app">
-          <img class="appimg" src="pruefdex-icon.png" alt="PrüfDex" width="56" height="56" />
-          <h3>PrüfDex</h3>
-          <p><span data-lang="de">DGUV-V3-Prüfungen mobil dokumentieren – Protokoll & Plakette per QR.</span><span data-lang="en">Document DGUV-V3 inspections on the go — report & label via QR.</span></p>
-          <span class="more"><span data-lang="de">Ansehen →</span><span data-lang="en">View →</span></span>
-        </a>
-      </div>
-      <p style="text-align:center;margin-top:28px">
-        <a class="btn btn-ghost" href="https://dexware.app/">
-          <span data-lang="de">Alle Dexware-Apps auf einen Blick →</span>
-          <span data-lang="en">All Dexware apps at a glance →</span>
-        </a>
-      </p>
     </section>
-  </div>
+
+    <section id="dexware">
+      <div class="wrap">
+        <div class="family-row rv">
+          <div>
+            <p class="eyebrow"><span data-l="de">Teil von Dexware</span><span data-l="en">Part of Dexware</span></p>
+            <h2><span data-l="de">Eine App pro Pflicht.</span><span data-l="en">One app per obligation.</span></h2>
+            <p class="lead"><span data-l="de">CraftDex gehört zu Dexware — schlanke Apps für Prüfung und Dokumentation im Betrieb.</span><span data-l="en">CraftDex is part of Dexware — focused apps for inspections and documentation at work.</span></p>
+          </div>
+          <a href="https://dexware.app/" class="btn ghost sm"><span data-l="de">Alle Apps ansehen</span><span data-l="en">See all apps</span> <svg class="i sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+        </div>
+        <div class="family rv">
+          <a href="https://gurtdex.dexware.app"><img src="assets/apps/gurtdex.webp" alt="" width="44" height="44" loading="lazy" /><b>GurtDex</b><small><span data-l="de">PSA gegen Absturz</span><span data-l="en">Fall protection</span></small></a>
+          <a href="https://toredex.dexware.app"><img src="assets/apps/toredex.webp" alt="" width="44" height="44" loading="lazy" /><b>ToreDex</b><small><span data-l="de">Tore & Türen</span><span data-l="en">Doors & gates</span></small></a>
+          <a href="https://geruestdex.dexware.app"><img src="assets/apps/geruestdex.webp" alt="" width="44" height="44" loading="lazy" /><b>GerüstDex</b><small><span data-l="de">Gerüstprüfung</span><span data-l="en">Scaffolding</span></small></a>
+          <a href="https://feuerdex.dexware.app"><img src="assets/apps/feuerdex.webp" alt="" width="44" height="44" loading="lazy" /><b>FeuerDex</b><small><span data-l="de">Feuerlöscher</span><span data-l="en">Fire extinguishers</span></small></a>
+          <a href="https://leiterdex.dexware.app"><img src="assets/apps/leiterdex.webp" alt="" width="44" height="44" loading="lazy" /><b>LeiterDex</b><small><span data-l="de">Leitern & Tritte</span><span data-l="en">Ladders</span></small></a>
+          <a href="https://regaldex.dexware.app"><img src="assets/apps/regaldex.webp" alt="" width="44" height="44" loading="lazy" /><b>RegalDex</b><small><span data-l="de">Regalinspektion</span><span data-l="en">Racking</span></small></a>
+          <a href="https://spieldex.dexware.app"><img src="assets/apps/spieldex.webp" alt="" width="44" height="44" loading="lazy" /><b>SpielDex</b><small><span data-l="de">Spielplatzkontrolle</span><span data-l="en">Playgrounds</span></small></a>
+          <a href="https://winterdex.dexware.app"><img src="assets/apps/winterdex.webp" alt="" width="44" height="44" loading="lazy" /><b>WinterDex</b><small><span data-l="de">Winterdienst</span><span data-l="en">Winter service</span></small></a>
+          <a href="https://kfzdex.dexware.app"><img src="assets/apps/kfzdex.webp" alt="" width="44" height="44" loading="lazy" /><b>KfzDex</b><small><span data-l="de">Fuhrpark & UVV</span><span data-l="en">Fleet & vehicle checks</span></small></a>
+          <a href="https://pruefdex.dexware.app"><img src="assets/apps/pruefdex.webp" alt="" width="44" height="44" loading="lazy" /><b>PrüfDex</b><small><span data-l="de">DGUV V3</span><span data-l="en">Electrical testing</span></small></a>
+          <a href="https://schutzdex.dexware.app"><img src="assets/apps/schutzdex.webp" alt="" width="44" height="44" loading="lazy" /><b>SchutzDex</b><small><span data-l="de">Unterweisungen</span><span data-l="en">Safety briefings</span></small></a>
+          <a href="https://baumdex.dexware.app"><img src="assets/apps/baumdex.webp" alt="" width="44" height="44" loading="lazy" /><b>BaumDex</b><small><span data-l="de">Baumkataster</span><span data-l="en">Tree register</span></small></a>
+          <a href="https://tourdex.dexware.app"><img src="assets/apps/tourdex.webp" alt="" width="44" height="44" loading="lazy" /><b>TourDex</b><small><span data-l="de">Fahrtenbuch</span><span data-l="en">Mileage log</span></small></a>
+          <a href="https://dokudex.dexware.app"><img src="assets/apps/dokudex.webp" alt="" width="44" height="44" loading="lazy" /><b>DokuDex</b><small><span data-l="de">Dokumente & KI</span><span data-l="en">Documents & AI</span></small></a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div class="wrap">
-      <div class="foot-brand">CraftDex</div>
-      <div>
-        <a href="ratgeber-baustellendokumentation.html" data-lang="de">Ratgeber</a>
-        <a href="datenschutz.html"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy</span></a>
-        <a href="agb.html"><span data-lang="de">AGB</span><span data-lang="en">Terms</span></a>
-        <a href="impressum.html"><span data-lang="de">Impressum</span><span data-lang="en">Legal Notice</span></a>
-        <a href="konto-loeschen.html"><span data-lang="de">Konto löschen</span><span data-lang="en">Delete account</span></a>
-      </div>
-      <p style="margin-top:16px">
-        <span data-lang="de">© 2026 CraftDex. Mit ♥ gebaut.</span>
-        <span data-lang="en">© 2026 CraftDex. Built with ♥.</span>
-      </p>
+      <span>© 2026 CraftDex · <span data-l="de">ein Produkt von</span><span data-l="en">a product of</span> <a href="https://dexware.app/">Dexware</a></span>
+      <nav aria-label="Rechtliches"><a href="ratgeber-baustellendokumentation.html"><span data-l="de">Ratgeber</span><span data-l="en">Guide</span></a><a href="impressum.html"><span data-l="de">Impressum</span><span data-l="en">Legal notice</span></a><a href="agb.html"><span data-l="de">AGB</span><span data-l="en">Terms</span></a><a href="datenschutz.html"><span data-l="de">Datenschutz</span><span data-l="en">Privacy</span></a><a href="konto-loeschen.html"><span data-l="de">Konto löschen</span><span data-l="en">Delete account</span></a><a href="mailto:support@dexware.app?subject=CraftDex%20Support">Support</a></nav>
     </div>
   </footer>
 
   <script>
     (function () {
-      function setLang(lang) {
-        document.body.className = 'lang-' + lang;
-        document.documentElement.lang = lang;
-        var btns = document.querySelectorAll('.langbar button');
-        for (var i = 0; i < btns.length; i++) {
-          btns[i].classList.toggle('active', btns[i].getAttribute('data-set') === lang);
-        }
-        try { localStorage.setItem('craftlog_lang', lang); } catch (e) {}
-      }
-      var saved = null;
-      try { saved = localStorage.getItem('craftlog_lang'); } catch (e) {}
-      var nav = (navigator.language || 'en').toLowerCase();
-      var initial = saved || (nav.indexOf('de') === 0 ? 'de' : 'en');
-      setLang(initial);
-      var btns = document.querySelectorAll('.langbar button');
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener('click', function () { setLang(this.getAttribute('data-set')); });
-      }
-    })();
-
-    (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      if (!('IntersectionObserver' in window)) return;
-      var els = document.querySelectorAll('.reveal');
-      for (var i = 0; i < els.length; i++) els[i].classList.add('pre');
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      var top = document.querySelector('.top');
+      var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
+      onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+      document.querySelectorAll('.lang [data-set]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var l = b.getAttribute('data-set');
+          document.documentElement.setAttribute('data-lang', l); document.documentElement.lang = l;
+          try { localStorage.setItem('lang', l); } catch (e) {}
         });
-      }, { threshold: 0.12 });
-      for (var j = 0; j < els.length; j++) io.observe(els[j]);
+      });
+      var els = document.querySelectorAll('.rv');
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        els.forEach(function (e) { e.classList.add('in'); }); return;
+      }
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      els.forEach(function (e) { io.observe(e); });
     })();
   </script>
 </body>
