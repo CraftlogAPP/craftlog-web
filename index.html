@@ -368,6 +368,22 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,.18) inset, 0 0 0 1px rgba(0,0,0,.5), 0 40px 70px -30px rgba(10,10,20,.55), 0 18px 30px -18px rgba(10,10,20,.35); }
     .track { animation-duration: calc(var(--d) * 1.25); }
     .mp { border-radius: 26px; } .mp::before { border-radius: 21px 21px 0 0; } .mp img { border-radius: 0 0 21px 21px; }
+
+    /* App-Familie: Suite-Block + Block „Weitere Apps“ (eigener Tarif) */
+    .fam-self { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; padding: 6px 13px; border-radius: 99px; font-size: 14px; font-weight: 600;
+      background: color-mix(in oklab, var(--accent) 16%, transparent); color: var(--accent-text); }
+    .fam-self .i { width: 16px; height: 16px; }
+    .fam-self.own { background: transparent; color: var(--ink); border: 1px dashed color-mix(in oklab, var(--ink) 40%, transparent); }
+    .fam-tier { margin-top: 30px; }
+    .fam-tier.own { margin-top: 26px; padding-top: 24px; border-top: 1px dashed var(--border); }
+    .fam-tier .family { margin-top: 12px; }
+    .fam-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; }
+    .fam-head b { font-weight: 650; }
+    .fam-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 700; letter-spacing: .02em;
+      background: color-mix(in oklab, var(--accent) 18%, transparent); color: var(--accent-text); }
+    .fam-tag .i { width: 14px; height: 14px; }
+    .fam-tag.own { background: transparent; color: var(--muted); border: 1px dashed color-mix(in oklab, var(--muted) 70%, transparent); }
+    @media (max-width: 480px) { .fam-head { font-size: 14px; } .fam-tier .family { margin-top: 8px; } }
   </style>
   <script>document.documentElement.classList.add('js');(function(){var l;try{l=localStorage.getItem('lang')}catch(e){}if(l!=='de'&&l!=='en')l=(navigator.language||'de').toLowerCase().indexOf('de')===0?'de':'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l})()</script>
 </head>
@@ -464,11 +480,12 @@
             <ul><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Unbegrenzt viele Projekte gleichzeitig</span><span data-l="en">Unlimited projects at the same time</span></li><li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Alles aus Free inklusive</span><span data-l="en">Everything in Free included</span></li></ul>
           </div>
           <div class="plan suite rv">
+            <span class="badge"><span data-l="de">Im Suite-Abo enthalten</span><span data-l="en">Included in the Suite</span></span>
             <h3>Dexware Suite</h3>
             <p class="price"><span data-l="de">39,99 €</span><span data-l="en">€39.99</span> <small><span data-l="de">/ Monat</span><span data-l="en">/ month</span></small></p>
             <p class="per"><span data-l="de">oder 319,99 € im Jahr · entspricht 26,67 € im Monat</span><span data-l="en">or €319.99 per year · that is €26.67 per month</span></p>
             <ul>
-              <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Alle 15 Dexware-Apps freigeschaltet</span><span data-l="en">All 15 Dexware apps unlocked</span></li>
+              <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Alle 15 Prüf-Apps der Suite freigeschaltet</span><span data-l="en">All 15 Suite inspection apps unlocked</span></li>
               <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Neue Apps automatisch dabei</span><span data-l="en">New apps included automatically</span></li>
               <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Ein Abo für alle Geräte</span><span data-l="en">One subscription for all devices</span></li>
             </ul>
@@ -504,10 +521,13 @@
             <p class="eyebrow"><span data-l="de">Teil von Dexware</span><span data-l="en">Part of Dexware</span></p>
             <h2><span data-l="de">Eine App pro Pflicht.</span><span data-l="en">One app per obligation.</span></h2>
             <p class="lead"><span data-l="de">CraftDex gehört zu Dexware — schlanke Apps für Prüfung und Dokumentation im Betrieb.</span><span data-l="en">CraftDex is part of Dexware — focused apps for inspections and documentation at work.</span></p>
+            <p class="fam-self"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">CraftDex ist im Suite-Abo enthalten</span><span data-l="en">CraftDex is included in the Dexware Suite</span></p>
           </div>
           <a href="https://dexware.app/" class="btn ghost sm"><span data-l="de">Alle Apps ansehen</span><span data-l="en">See all apps</span> <svg class="i sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
         </div>
-        <div class="family rv">
+        <div class="fam-tier rv">
+          <p class="fam-head"><span class="fam-tag"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-l="de">Im Suite-Abo</span><span data-l="en">In the Suite</span></span><b><span data-l="de">Dexware Suite – ein Abo, alle Prüf-Apps</span><span data-l="en">Dexware Suite – one subscription, all inspection apps</span></b></p>
+          <div class="family">
           <a href="https://hebedex.dexware.app"><img src="assets/apps/hebedex.webp" alt="" width="44" height="44" loading="lazy" /><b>HebeDex</b><small><span data-l="de">Anschlag- & Zurrmittel · bald</span><span data-l="en">Lifting & lashing gear · soon</span></small></a>
           <a href="https://gurtdex.dexware.app"><img src="assets/apps/gurtdex.webp" alt="" width="44" height="44" loading="lazy" /><b>GurtDex</b><small><span data-l="de">PSA gegen Absturz</span><span data-l="en">Fall protection</span></small></a>
           <a href="https://toredex.dexware.app"><img src="assets/apps/toredex.webp" alt="" width="44" height="44" loading="lazy" /><b>ToreDex</b><small><span data-l="de">Tore & Türen</span><span data-l="en">Doors & gates</span></small></a>
@@ -523,6 +543,15 @@
           <a href="https://baumdex.dexware.app"><img src="assets/apps/baumdex.webp" alt="" width="44" height="44" loading="lazy" /><b>BaumDex</b><small><span data-l="de">Baumkataster</span><span data-l="en">Tree register</span></small></a>
           <a href="https://tourdex.dexware.app"><img src="assets/apps/tourdex.webp" alt="" width="44" height="44" loading="lazy" /><b>TourDex</b><small><span data-l="de">Fahrtenbuch</span><span data-l="en">Mileage log</span></small></a>
           <a href="https://dokudex.dexware.app"><img src="assets/apps/dokudex.webp" alt="" width="44" height="44" loading="lazy" /><b>DokuDex</b><small><span data-l="de">Dokumente & KI</span><span data-l="en">Documents & AI</span></small></a>
+          </div>
+        </div>
+        <div class="fam-tier own rv">
+          <p class="fam-head"><span class="fam-tag own"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></svg><span data-l="de">Eigener Tarif</span><span data-l="en">Own plan</span></span><b><span data-l="de">Weitere Apps von Dexware – nicht im Suite-Abo</span><span data-l="en">More apps from Dexware – not in the Suite</span></b></p>
+          <div class="family">
+          <a href="https://hausdex.dexware.app"><img src="assets/apps/hausdex.webp" alt="" width="44" height="44" loading="lazy" /><b>HausDex</b><small><span data-l="de">Hausakte · bald</span><span data-l="en">Home logbook · soon</span></small></a>
+          <a href="https://installateurdex.dexware.app"><img src="assets/apps/installateurdex.webp" alt="" width="44" height="44" loading="lazy" /><b>InstallateurDex</b><small><span data-l="de">Wartung & Kundendienst · bald</span><span data-l="en">Service & maintenance · soon</span></small></a>
+          <a href="https://mietzeuge.dexware.app"><img src="assets/apps/mietzeuge.webp" alt="" width="44" height="44" loading="lazy" /><b>Mietzeuge</b><small><span data-l="de">Wohnungsübergabe · bald</span><span data-l="en">Move-in & move-out · soon</span></small></a>
+          </div>
         </div>
       </div>
     </section>
