@@ -1,0 +1,62 @@
+# CraftDex
+
+> CraftDex ist eine App von Dexware. Jeden Arbeitsschritt mit Fotos, Material, Stunden und Kosten festhalten – vom Gartenhaus bis zur Kundenbaustelle. Bis zu 2 Projekte gratis, ohne Zeitlimit. Android-App bei Google Play, für iPhone und iPad bald. Pro 4,99 € im Monat.
+
+Sachliche Kurzinfo für Sprachmodelle und Suchdienste. Maßgeblich sind die Angaben auf https://craftdex.dexware.app/. Anbieter: Dexware (https://dexware.app/), Kontakt: support@dexware.app.
+
+## Was CraftDex macht
+
+- Schritte & Material: Arbeitsschritte abhaken, Materialliste führen — der Fortschritt rechnet sich von selbst.
+- Fotos pro Schritt: Vom Rohzustand bis zum fertigen Detail — dazu ein Titelfoto fürs ganze Projekt.
+- Zeit-Tracking: Aufwand schätzen und echte Stunden mit einem Tipp loggen, in 30-Minuten-Schritten.
+- Kosten & Budget: Alle Ausgaben erfassen, Budget setzen und sofort sehen, wenn es überschritten ist.
+- Kunden & Auftragsstatus: Kunde hinterlegen und Status von Angebot über In Arbeit bis Abgerechnet — komplett optional.
+- Statistiken: Gesamtstunden, Kategorien, Top-Projekte und Gesamtkosten auf einen Blick.
+
+## Am PC im Dexware-Dashboard
+
+Was du in CraftDex festhältst, siehst du im Dexware-Dashboard am Computer — mit demselben Konto, ohne Installation.
+
+- Alles auf einen Blick: In Arbeit, offene Angebote, abzurechnen und erfasste Stunden.
+- Anstehende Termine: Welcher Auftrag wann dran ist, mit Kunde und Status. Überfällige sind markiert.
+- Kosten gegen Budget: Je Auftrag Stunden, Fortschritt und Kosten im Vergleich zum Budget.
+- Schritte, Material, Fotos: Alles zum Auftrag auf einer Seite. Aufträge legst du auch am PC an.
+
+## Für wen
+
+Für Handwerk und Hobby.
+
+## Preise
+
+- Gratis (für immer): Bis zu 2 Projekte; Schritte, Material & Fotos ohne Limit; Zeit- & Kosten-Tracking mit Budget-Warnung; Statistiken & Charts; Erinnerungen, Einkaufsliste, Projekt teilen
+- Pro: 4,99 € im Monat oder im Jahresabo mit 2 Monaten gratis. Enthält: Unbegrenzt viele Projekte gleichzeitig; Alles aus Free inklusive
+- Preise inkl. MwSt., Abo jederzeit kündbar.
+
+## Kurz beantwortet
+
+- Ist CraftDex auch für Handwerksbetriebe? Ja. Hinterlege Kunden, verfolge den Auftragsstatus von Angebot bis Abgerechnet und dokumentiere die Baustelle mit Fotos pro Schritt. Wer nur am Wochenende werkelt, lässt Kunde und Status einfach weg.
+- Was sollte ich auf der Baustelle dokumentieren? Fotos vom Baufortschritt mit Datum, besonders von Leitungen oder Abdichtungen, die später verdeckt sind, dazu die ausgeführten Arbeitsschritte, das verbaute Material mit Menge und die Stunden.
+- Was bleibt in der kostenlosen Version? Alle Funktionen — Schritte, Materialliste, Fotos, Zeit- und Kosten-Tracking, Statistiken — für bis zu 2 Projekte, ohne Zeitlimit. Pro hebt nur die Projekt-Grenze auf.
+- Kann ich meine Aufträge auch am Computer sehen? Ja, im Dexware-Dashboard im Browser: alle Aufträge mit Terminen, Stunden und Kosten.
+- Wo werden meine Projekte gespeichert? Projekte liegen auf deinem Gerät und werden mit Konto zusätzlich synchronisiert. Wie und wo, steht in der Datenschutzerklärung.
+- Kann ich ein Projekt mit anderen teilen? Ja. Du teilst eine Kurzfassung (Titel, Fortschritt, Schritte, Stunden) oder die Einkaufsliste als Text, etwa per Messenger an Kunden oder Familie.
+- Alle Antworten: https://craftdex.dexware.app/#faq
+
+## Seiten
+
+- [Startseite](https://craftdex.dexware.app/): Funktionen, Preise, häufige Fragen
+- [Preise](https://craftdex.dexware.app/#preise): Gratis und Pro
+- [Häufige Fragen](https://craftdex.dexware.app/#faq)
+- [Dexware-Dashboard](https://dashboard.dexware.app/app/craftdex): am PC im Browser, mit demselben Konto
+- [Google Play](https://play.google.com/store/apps/details?id=com.craftlog.app): Android-App
+- [Dexware](https://dexware.app/): alle Apps von Dexware
+
+## Ratgeber
+
+- [Baustellendokumentation im Handwerk: was und wie](https://craftdex.dexware.app/ratgeber-baustellendokumentation.html): Baustellendokumentation im Handwerk verständlich erklärt: warum sie bei Streit über Mängel, Nachträge und Behinderungen entscheidet, was täglich festgehalten gehört, wie du sie im Alltag durchhältst — und welche Fehler am teuersten werden.
+
+## Rechtliches
+
+- [Impressum](https://craftdex.dexware.app/impressum.html)
+- [Datenschutz](https://craftdex.dexware.app/datenschutz.html)
+- [AGB](https://craftdex.dexware.app/agb.html)
