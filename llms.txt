@@ -1,6 +1,6 @@
 # CraftDex
 
-> CraftDex ist eine App von Dexware. Jeden Arbeitsschritt mit Fotos, Material, Stunden und Kosten festhalten – vom Gartenhaus bis zur Kundenbaustelle. Bis zu 2 Projekte gratis, ohne Zeitlimit. Android-App bei Google Play, für iPhone und iPad bald. Pro 4,99 € im Monat.
+> CraftDex ist eine App von Dexware. Jeden Arbeitsschritt mit Fotos, Material, Stunden und Kosten festhalten – vom Gartenhaus bis zur Kundenbaustelle. Bis zu 2 Projekte gratis, ohne Zeitlimit. Android-App bei Google Play, für iPhone und iPad bald. Pro 4,99 € im Monat oder 49,99 € im Jahr.
 
 Sachliche Kurzinfo für Sprachmodelle und Suchdienste. Maßgeblich sind die Angaben auf https://craftdex.dexware.app/. Anbieter: Dexware (https://dexware.app/), Kontakt: support@dexware.app.
 
@@ -29,7 +29,7 @@ Für Handwerk und Hobby.
 ## Preise
 
 - Gratis (für immer): Bis zu 2 Projekte; Schritte, Material & Fotos ohne Limit; Zeit- & Kosten-Tracking mit Budget-Warnung; Statistiken & Charts; Erinnerungen, Einkaufsliste, Projekt teilen
-- Pro: 4,99 € im Monat oder im Jahresabo mit 2 Monaten gratis. Enthält: Unbegrenzt viele Projekte gleichzeitig; Alles aus Free inklusive
+- Pro: 4,99 € im Monat oder 49,99 € im Jahr – 2 Monate gratis. Enthält: Unbegrenzt viele Projekte gleichzeitig; Alles aus Free inklusive
 - Preise inkl. MwSt., Abo jederzeit kündbar.
 
 ## Kurz beantwortet
